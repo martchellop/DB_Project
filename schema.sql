@@ -1,4 +1,3 @@
-
 CREATE TABLE organizador (
 	CPF char(11),
 	nome varchar(50) NOT NULL,
@@ -7,8 +6,35 @@ CREATE TABLE organizador (
 	CONSTRAINT pk_organizador PRIMARY KEY (CPF)
 );
 
+CREATE TABLE festa_tipo (
+	data timestamp,
+	organizador char(11),
+	tipo varchar(21) NOT NULL,
+	CONSTRAINT pk_festa_tipo PRIMARY KEY (data, organizador)
+);
+
+CREATE TABLE universitaria (
+	data timestamp,
+	organizador char(11),
+	preco smallint NOT NULL,
+	CONSTRAINT pk_universitaria PRIMARY KEY (data, organizador),
+	CONSTRAINT fk_universitaria_org FOREIGN KEY (organizador) REFERENCES organizador(CPF),
+	CONSTRAINT fk_universitaria_fes FOREIGN KEY (data, organizador) REFERENCES festa_tipo(data, organizador)
+);
+
+CREATE TABLE bilhete (
+	data timestamp,
+	organizador char(11),
+	id serial,
+	preco smallint,
+	lote smallint,
+	vendido bool DEFAULT FALSE,
+	CONSTRAINT pk_bilhete PRIMARY KEY (data, organizador, id),
+	CONSTRAINT fk_bilhete FOREIGN KEY (data, organizador) REFERENCES universitaria(data, organizador)
+);
+
 CREATE TABLE empresa_tipo (
 	CNPJ char(14),
-	tipo varchar(20) not null,
-	constraint pk_empresa_tipo primary key (CNPJ)
+	tipo varchar(20) NOT NULL,
+	CONSTRAINT pk_empresa_tipo PRIMARY KEY (CNPJ)
 );
