@@ -128,3 +128,24 @@ CREATE TABLE casamento_decoracao (
 	CONSTRAINT fk_casamento_decoracao_deco FOREIGN KEY (empresa)
 		REFERENCES decoracao(empresa)
 );
+
+CREATE TABLE flor(
+	empresa char(14),
+	especie varchar(20),
+	cor varchar(20),
+	CONSTRAINT pk_flor PRIMARY KEY (empresa, especie, cor),
+	CONSTRAINT fk_flor FOREIGN KEY (empresa) REFERENCES floricultura(empresa)
+);
+
+CREATE TABLE casamento_floricultura (
+	data timestamp,
+	organizador char(11),
+	empresa char(14),
+	preco smallint NOT NULL,
+	CONSTRAINT pk_casamento_floricultura PRIMARY KEY (data, organizador, empresa),
+	CONSTRAINT fk_casamento_floricultura_casa FOREIGN KEY (data, organizador)
+		REFERENCES casamento(data, organizador),
+	CONSTRAINT fk_casamento_floricultura_flor FOREIGN KEY (empresa)
+		REFERENCES floricultura(empresa)
+
+);
