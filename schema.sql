@@ -59,8 +59,10 @@ CREATE TABLE casamento_cerimonialista (
 	organizador char(11),
 	cerimonialista varchar(50),
 	CONSTRAINT pk_casamento_cerimonialista PRIMARY KEY (data, organizador),
-	CONSTRAINT fk_casamento_cerimonialista_casa FOREIGN KEY (data, organizador) REFERENCES casamento(data, organizador),
-	CONSTRAINT fk_casamento_cerimonialista_ceri FOREIGN KEY (cerimonialista) REFERENCES cerimonialista(nome)
+	CONSTRAINT fk_casamento_cerimonialista_casa FOREIGN KEY (data, organizador)
+		REFERENCES casamento(data, organizador),
+	CONSTRAINT fk_casamento_cerimonialista_ceri FOREIGN KEY (cerimonialista)
+		REFERENCES cerimonialista(nome)
 );
 
 CREATE TABLE empresa_tipo (
@@ -104,4 +106,25 @@ CREATE TABLE transporte (
 	endereco varchar(150),
 	CONSTRAINT pk_transporte PRIMARY KEY (empresa),
 	CONSTRAINT fk_transporte FOREIGN KEY (empresa) REFERENCES empresa_tipo(CNPJ)
+);
+
+CREATE TABLE decor (
+	tipo varchar(20),
+	cor varchar(20),
+	marca varchar(20),
+	empresa char(14),
+	CONSTRAINT pk_decor PRIMARY KEY (tipo, cor, marca),
+	CONSTRAINT fk_decor FOREIGN KEY (empresa) REFERENCES decoracao(empresa)
+);
+
+CREATE TABLE casamento_decoracao (
+	data timestamp,
+	organizador char(11),
+	empresa char(14),
+	preco smallint NOT NULL,
+	CONSTRAINT pk_casamento_decoracao PRIMARY KEY (data, organizador, empresa),
+	CONSTRAINT fk_casamento_decoracao_casa FOREIGN KEY (data, organizador)
+		REFERENCES casamento(data, organizador),
+	CONSTRAINT fk_casamento_decoracao_deco FOREIGN KEY (empresa)
+		REFERENCES decoracao(empresa)
 );
