@@ -142,10 +142,37 @@ CREATE TABLE casamento_floricultura (
 	organizador char(11),
 	empresa char(14),
 	preco smallint NOT NULL,
-	CONSTRAINT pk_casamento_floricultura PRIMARY KEY (data, organizador, empresa),
+	CONSTRAINT pk_casamento_floricultura PRIMARY KEY
+		(data, organizador, empresa),
 	CONSTRAINT fk_casamento_floricultura_casa FOREIGN KEY (data, organizador)
 		REFERENCES casamento(data, organizador),
 	CONSTRAINT fk_casamento_floricultura_flor FOREIGN KEY (empresa)
 		REFERENCES floricultura(empresa)
 
 );
+
+CREATE TABLE veiculo_tipo (
+	modelo varchar(20),
+	n_assentos smallint NOT NULL,
+	CONSTRAINT pk_veiculo_tipo PRIMARY KEY (modelo)
+);
+
+CREATE TABLE transporte_veiculo (
+	empresa char(14),
+	tipo varchar(20),
+	CONSTRAINT pk_transporte_veiculo PRIMARY KEY (empresa, tipo),
+	CONSTRAINT fk_transporte_veiculo_trans FOREIGN KEY (empresa)
+		REFERENCES transporte(empresa)
+);
+
+CREATE TABLE aluga (
+	data timestamp,
+	organizador char(11),
+	empresa char(14),
+	CONSTRAINT pk_aluga PRIMARY KEY (data, organizador, empresa),
+	CONSTRAINT fk_aluga_univ FOREIGN KEY (data, organizador)
+		REFERENCES universitaria(data, organizador),
+	CONSTRAINT fk_aluga_trans FOREIGN KEY (empresa)
+		REFERENCES transporte(empresa)
+);
+
