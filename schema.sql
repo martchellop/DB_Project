@@ -33,6 +33,32 @@ CREATE TABLE bilhete (
 	CONSTRAINT fk_bilhete FOREIGN KEY (data, organizador) REFERENCES universitaria(data, organizador)
 );
 
+CREATE TABLE casamento (
+	data timestamp,
+	organizador char(11),
+	preco smallint NOT NULL,
+	conjuge1 varchar(50) NOT NULL,
+	conjuge2 varchar(50) NOT NULL,
+	CONSTRAINT pk_casamento PRIMARY KEY (data, organizador),
+	CONSTRAINT fk_casamento FOREIGN KEY (organizador) REFERENCES organizador(CPF)
+);
+
+CREATE TABLE cerimonialista (
+	nome varchar(50),
+	telefone varchar(15),
+	linha_atuacao varchar(20)
+	CONSTRAINT pk_cerimonialista PRIMARY KEY (nome)
+);
+
+CREATE TABLE casamento_cerimonialista (
+	data timestamp,
+	organizador char(11),
+	cerimonialista varchar(50),
+	CONSTRAINT pk_casamento_cerimonialista PRIMARY KEY (data, organizador),
+	CONSTRAINT fk_casamento_cerimonialista_casa FOREIGN KEY (data, organizador),
+	CONSTRAINT fk_casamento_cerimonialista_ceri FOREIGN KEY (cerimonialista) REFERENCES cerimonialista(nome)
+);
+
 CREATE TABLE empresa_tipo (
 	CNPJ char(14),
 	tipo varchar(20) NOT NULL,
