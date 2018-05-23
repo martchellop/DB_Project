@@ -176,3 +176,36 @@ CREATE TABLE aluga (
 		REFERENCES transporte(empresa)
 );
 
+CREATE TABLE espaco (
+	CEP char(8),
+	categoria varchar(30),
+	endereco varchar(200),
+	capacidade integer,
+	empresa char(14),
+	CONSTRAINT pk_espaco PRIMARY KEY (CEP),
+	CONSTRAINT fk_espaco FOREIGN KEY (empresa) REFERENCES locacao(empresa)
+);
+
+CREATE TABLE casamento_espaco (
+	data timestamp,
+	organizador char(11),
+	espaco char(8),
+	preco smallint NOT NULL,
+	CONSTRAINT pk_casamento_espaco PRIMARY KEY (data, organizador),
+	CONSTRAINT fk_casamento_espaco_casa FOREIGN KEY (data, organizador)
+		REFERENCES casamento(data, organizador),
+	CONSTRAINT fk_casamento_espaco_espa FOREIGN KEY (espaco)
+		REFERENCES espaco(CEP)
+);
+
+CREATE TABLE universitaria_espaco (
+	data timestamp,
+	organizador char(11),
+	espaco char(8),
+	preco smallint NOT NULL,
+	CONSTRAINT pk_universitaria_espaco PRIMARY KEY (data, organizador),
+	CONSTRAINT fk_universitaria_espaco_casa FOREIGN KEY (data, organizador)
+		REFERENCES universitaria(data, organizador),
+	CONSTRAINT fk_universitaria_espaco_espa FOREIGN KEY (espaco)
+		REFERENCES espaco(CEP)
+);
