@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from autoMainScreen import Ui_MainWindow
+from autoSearchEvent import Ui_MainWindow
 
 import queries
 
@@ -28,20 +28,13 @@ class MainScreen(QtWidgets.QMainWindow):
             return
 
         organizer_name = self.ui.line_edit_name.text()
-        data = queries.search_events(event_type, date_start, date_end,
-                                     organizer_cpf, organizer_name)
-
         model = queries.search_events(event_type, date_start, date_end,
-                                     organizer_cpf, organizer_name)
-        self.ui.table_search_results.setModel(model)
-
-        """
-        if data:
-            for line in data:
-                self.ui.list_event_search.addItem(line)
+                                      organizer_cpf, organizer_name)
+        if model:
+            self.ui.table_search_results.setModel(model)
         else:
             self.warning("Nenhuma festa com esses parâmetros encontrada!")
-        """
+
 
     def warning(self, message):
         box = QtWidgets.QMessageBox()
@@ -57,8 +50,7 @@ class MainScreen(QtWidgets.QMainWindow):
             box.close()
 
     # Overloading classes
-    # TODO: def closeEvent(self, event):
-    def temp(self, event):
+    def closeEvent(self, event):
         # Verifies if the user wants to exit the window
         box = QtWidgets.QMessageBox()
         box.setIcon(QtWidgets.QMessageBox.Question)
@@ -78,7 +70,7 @@ class MainScreen(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     import sys
-    app = QtWidgets.QApplication(sys.argv)
-    gui = MainScreen()
-    gui.show()
-    sys.exit(app.exec_())
+    APP = QtWidgets.QApplication(sys.argv)
+    GUI = MainScreen()
+    GUI.show()
+    sys.exit(APP.exec_())

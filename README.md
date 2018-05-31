@@ -3,4 +3,9 @@ Final project of data base
 
 # Installation:
 
-Just run pip3 install -r requirements.txt
+Python3 is required. For installing the necessary libs, just run:
+
+pip3 install -r requirements.txt
+
+# Running:
+python3 search_event.py
