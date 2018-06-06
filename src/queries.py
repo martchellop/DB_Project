@@ -29,7 +29,7 @@ def temporary_test():
     data = []
     
     # Read file
-    with open("sample_table.sql", "r") as f:
+    with open("src/sample_table.sql", "r") as f:
         data = [line.rstrip() for line in f]
 
     # Join multiple lines in 1 comamnd
@@ -82,7 +82,7 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
 
 def connect_database():
     db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-    db.setDatabaseName('test_events.db')
+    db.setDatabaseName('src/test_events.db')
 
     # TODO: Handle the error 
     if not db.open():
