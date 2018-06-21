@@ -4,6 +4,12 @@ from autoUpdateServices import Ui_MainWindow
 import queries
 import main_screen
 
+import update_localization
+import update_transport
+import update_tickets
+
+import utils
+
 class updateServices(QtWidgets.QMainWindow):
     def __init__(self):
         super(updateServices, self).__init__()
@@ -13,53 +19,31 @@ class updateServices(QtWidgets.QMainWindow):
         self.bypass = False
 
         # Connect buttons
-        self.ui.button_localization.clicked.connect(self.handle_localization)
-        self.ui.button_transport.clicked.connect(self.handle_transport)
-        self.ui.button_ticket.clicked.connect(self.handle_ticket)
+        self.ui.button_menu.clicked.connect(lambda x: \
+                self.handle_menu(main_screen.MainScreen))
+        self.ui.button_localization.clicked.connect(lambda x: \
+                self.handle_menu(update_localization.updateLocalization))
+        """
+        self.ui.button_transport.clicked.connect(lambda x: \
+                self.handle_menu(main_screen.updateTransport))
+        self.ui.button_tickets.clicked.connect(lambda x: \
+                self.handle_menu(main_screen.updateTickets))
+        """
+
 
     # Handles
-    def handle_menu(self):
-        self.anotherwindow = main_screen.MainScreen()
+    def handle_menu(self, window_func):
+        self.anotherwindow = window_func()
         self.anotherwindow.show()
         self.bypass = True
         self.close()
         return
 
-
-    def warning(self, message):
-        box = QtWidgets.QMessageBox()
-        box.setIcon(QtWidgets.QMessageBox.Question)
-        box.setWindowTitle("Aviso")
-        box.setText(message)
-        box.setStandardButtons(QtWidgets.QMessageBox.Yes)
-        button_yes = box.button(QtWidgets.QMessageBox.Yes)
-        button_yes.setText('Ok')
-        box.exec_()
-
-        if box.clickedButton() == button_yes:  # Yes pressed
-            box.close()
-
-    # Overloading classes
+  # Overloading classes
     def closeEvent(self, event):
-        # Verifies if the user wants to exit the window
-        if self.bypass:
-            event.accept()
-            return
-        box = QtWidgets.QMessageBox()
-        box.setIcon(QtWidgets.QMessageBox.Question)
-        box.setWindowTitle('Saindo!')
-        box.setText('Tem certeza que quer sair?')
-        box.setStandardButtons(QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
-        button_yes = box.button(QtWidgets.QMessageBox.Yes)
-        button_yes.setText('Sim')
-        button_no = box.button(QtWidgets.QMessageBox.No)
-        button_no.setText('Não')
-        box.exec_()
+        utils.closeEvent(self.bypass, event)
+        return
 
-        if box.clickedButton() == button_yes:  # Yes pressed
-            event.accept()
-        elif box.clickedButton() == button_no:
-            event.ignore()
 
 if __name__ == "__main__":
     import sys

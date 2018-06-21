@@ -3,6 +3,7 @@ from autoUpdateEvent import Ui_MainWindow
 
 import queries
 import main_screen
+import utils
 
 class updateScreen(QtWidgets.QMainWindow):
     def __init__(self):
@@ -32,52 +33,22 @@ class updateScreen(QtWidgets.QMainWindow):
 
         # Deals with empty cpf or invalid amount of digits
         if organizer_cpf == "..." or len(organizer_cpf) != 14:
-            self.warning("CPF inválido!")
+            utils.warning("CPF inválido!")
             return
 
         # Deals with the user not selecting anything to be changed
         if not self.ui.check_date.isChecked() and not self.ui.check_cpf.isChecked():
-            self.warning("Nada selecionado para ser atualizado!")
+            utils.warning("Nada selecionado para ser atualizado!")
             return
 
         message = queries.update_uni_event(date, organizer_cpf, new_date, new_cpf)
-        self.warning(message)
-
-
-    def warning(self, message):
-        box = QtWidgets.QMessageBox()
-        box.setIcon(QtWidgets.QMessageBox.Question)
-        box.setWindowTitle("Aviso")
-        box.setText(message)
-        box.setStandardButtons(QtWidgets.QMessageBox.Yes)
-        button_yes = box.button(QtWidgets.QMessageBox.Yes)
-        button_yes.setText('Ok')
-        box.exec_()
-
-        if box.clickedButton() == button_yes:  # Yes pressed
-            box.close()
+        utils.warning(message)
 
     # Overloading classes
     def closeEvent(self, event):
-        # Verifies if the user wants to exit the window
-        if self.bypass:
-            event.accept()
-            return
-        box = QtWidgets.QMessageBox()
-        box.setIcon(QtWidgets.QMessageBox.Question)
-        box.setWindowTitle('Saindo!')
-        box.setText('Tem certeza que quer sair?')
-        box.setStandardButtons(QtWidgets.QMessageBox.Yes|QtWidgets.QMessageBox.No)
-        button_yes = box.button(QtWidgets.QMessageBox.Yes)
-        button_yes.setText('Sim')
-        button_no = box.button(QtWidgets.QMessageBox.No)
-        button_no.setText('Não')
-        box.exec_()
+        utils.closeEvent(self.bypass, event)
+        return
 
-        if box.clickedButton() == button_yes:  # Yes pressed
-            event.accept()
-        elif box.clickedButton() == button_no:
-            event.ignore()
 
 if __name__ == "__main__":
     import sys

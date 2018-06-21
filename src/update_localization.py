@@ -1,21 +1,21 @@
 from PyQt5 import QtWidgets
-from autoSearchEvent import Ui_MainWindow
+from autoUpdateLocalization import Ui_MainWindow
 
 import queries
 import main_screen
 import utils
 
 
-class searchScreen(QtWidgets.QMainWindow):
+class updateLocalization(QtWidgets.QMainWindow):
     def __init__(self):
-        super(searchScreen, self).__init__()
+        super(updateLocalization, self).__init__()
         self.ui = Ui_MainWindow() # Load ui file for main window
         self.ui.setupUi(self)
         self.anotherwindow = None
         self.bypass = False
 
         # Connect buttons
-        self.ui.button_search_events.clicked.connect(self.handle_search_events)
+        self.ui.button_update_event.clicked.connect(self.handle_update_event)
         self.ui.button_menu.clicked.connect(self.handle_menu)
 
     # Handles
@@ -27,35 +27,27 @@ class searchScreen(QtWidgets.QMainWindow):
         return
 
 
-    def handle_search_events(self):
-        event_type = str(self.ui.combo_box_choose_event_type.currentText())
-        date_start = self.ui.date_edit_start.date().toPyDate()
-        date_end = self.ui.date_edit_end.date().toPyDate()
+    def handle_update_event(self):
+        date = self.ui.date_edit.date().toPyDate()
         organizer_cpf = self.ui.line_edit_cpf.text()
+        new_date, new_cpf = None, None
 
         # Deals with empty cpf or invalid amount of digits
-        if organizer_cpf == "...":
-            organizer_cpf = None
-        elif len(organizer_cpf) != 14:
+        if organizer_cpf == "..." or len(organizer_cpf) != 14:
             utils.warning("CPF inválido!")
             return
 
-        organizer_name = self.ui.line_edit_name.text()
-        model = queries.search_events(event_type, date_start, date_end,
-                                      organizer_cpf, organizer_name)
-        if model:
-            self.ui.table_search_results.setModel(model)
-        else:
-            utils.warning("Nenhuma festa com esses parâmetros encontrada!")
+        message = queries.update_uni_event(date, organizer_cpf, new_date, new_cpf)
+        utils.warning(message)
 
     # Overloading classes
     def closeEvent(self, event):
         utils.closeEvent(self.bypass, event)
-
+        return
 
 if __name__ == "__main__":
     import sys
     APP = QtWidgets.QApplication(sys.argv)
-    GUI = searchScreen()
+    GUI = updateLocalization()
     GUI.show()
     sys.exit(APP.exec_())

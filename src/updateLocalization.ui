@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
-    <height>809</height>
+    <width>645</width>
+    <height>823</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,7 +51,7 @@ color: white</string>
      <rect>
       <x>50</x>
       <y>130</y>
-      <width>491</width>
+      <width>521</width>
       <height>231</height>
      </rect>
     </property>
@@ -229,8 +229,8 @@ color: white</string>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>360</y>
+      <x>150</x>
+      <y>390</y>
       <width>311</width>
       <height>41</height>
      </rect>
@@ -253,112 +253,139 @@ color: white</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
+   <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>410</y>
-      <width>491</width>
-      <height>221</height>
+      <y>440</y>
+      <width>312</width>
+      <height>80</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QCheckBox" name="check_cpf">
-         <property name="styleSheet">
-          <string notr="true">font: 14pt &quot;Cantarell&quot;;
-color: white;
-background-color: rgb(85, 87, 83);</string>
-         </property>
-         <property name="text">
-          <string>CPF</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="line_edit_update_cpf">
-         <property name="styleSheet">
-          <string notr="true">font: 14pt &quot;Cantarell&quot;;
+      <widget class="QLabel" name="label_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>40</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Cantarell&quot;;
 color: white</string>
-         </property>
-         <property name="inputMask">
-          <string>999.999.999.99</string>
-         </property>
-         <property name="clearButtonEnabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       </property>
+       <property name="text">
+        <string>CEP</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QCheckBox" name="check_date">
-         <property name="styleSheet">
-          <string notr="true">font: 14pt &quot;Cantarell&quot;;
-background-color: rgb(85, 87, 83);
+      <widget class="QLineEdit" name="line_edit_cpf_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Cantarell&quot;;
 color: white</string>
-         </property>
-         <property name="text">
-          <string>Data</string>
-         </property>
-        </widget>
+       </property>
+       <property name="inputMask">
+        <string>99999-999</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Cantarell&quot;;
+color: white</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Adicionar</string>
+        </property>
        </item>
        <item>
-        <widget class="QDateEdit" name="date_update">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font: 14pt &quot;Cantarell&quot;;
-color: white</string>
-         </property>
-         <property name="dateTime">
-          <datetime>
-           <hour>0</hour>
-           <minute>0</minute>
-           <second>0</second>
-           <year>2018</year>
-           <month>1</month>
-           <day>11</day>
-          </datetime>
-         </property>
-         <property name="maximumDate">
-          <date>
-           <year>7999</year>
-           <month>12</month>
-           <day>31</day>
-          </date>
-         </property>
-         <property name="minimumDate">
-          <date>
-           <year>2000</year>
-           <month>1</month>
-           <day>1</day>
-          </date>
-         </property>
-         <property name="displayFormat">
-          <string>d/M/yy</string>
-         </property>
-         <property name="calendarPopup">
-          <bool>true</bool>
-         </property>
-         <property name="currentSectionIndex">
-          <number>0</number>
-         </property>
-         <property name="date">
-          <date>
-           <year>2018</year>
-           <month>1</month>
-           <day>11</day>
-          </date>
-         </property>
-        </widget>
+        <property name="text">
+         <string>Remover</string>
+        </property>
        </item>
-      </layout>
+       <item>
+        <property name="text">
+         <string>Atualizar</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>440</y>
+      <width>211</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_9">
+       <property name="maximumSize">
+        <size>
+         <width>50</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Cantarell&quot;;
+color: white</string>
+       </property>
+       <property name="text">
+        <string>Price</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="line_edit_cpf_5">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 14pt &quot;Cantarell&quot;;
+color: white</string>
+       </property>
+       <property name="inputMask">
+        <string>99999</string>
+       </property>
+       <property name="text">
+        <string>1000</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -368,7 +395,7 @@ color: white</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>572</width>
+     <width>645</width>
      <height>25</height>
     </rect>
    </property>

@@ -29,25 +29,25 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.button_menu = QtWidgets.QPushButton(self.centralWidget)
-        self.button_menu.setGeometry(QtCore.QRect(40, 220, 151, 51))
+        self.button_menu.setGeometry(QtCore.QRect(40, 270, 151, 51))
         self.button_menu.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
         self.button_menu.setObjectName("button_menu")
-        self.button_menu_2 = QtWidgets.QPushButton(self.centralWidget)
-        self.button_menu_2.setGeometry(QtCore.QRect(40, 140, 151, 51))
-        self.button_menu_2.setStyleSheet("font: 14pt \"Cantarell\";\n"
+        self.button_localization = QtWidgets.QPushButton(self.centralWidget)
+        self.button_localization.setGeometry(QtCore.QRect(40, 140, 151, 51))
+        self.button_localization.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
-        self.button_menu_2.setObjectName("button_menu_2")
-        self.button_menu_3 = QtWidgets.QPushButton(self.centralWidget)
-        self.button_menu_3.setGeometry(QtCore.QRect(210, 140, 151, 51))
-        self.button_menu_3.setStyleSheet("font: 14pt \"Cantarell\";\n"
+        self.button_localization.setObjectName("button_localization")
+        self.button_transport = QtWidgets.QPushButton(self.centralWidget)
+        self.button_transport.setGeometry(QtCore.QRect(210, 140, 151, 51))
+        self.button_transport.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
-        self.button_menu_3.setObjectName("button_menu_3")
-        self.button_menu_4 = QtWidgets.QPushButton(self.centralWidget)
-        self.button_menu_4.setGeometry(QtCore.QRect(380, 140, 151, 51))
-        self.button_menu_4.setStyleSheet("font: 14pt \"Cantarell\";\n"
+        self.button_transport.setObjectName("button_transport")
+        self.button_tickets = QtWidgets.QPushButton(self.centralWidget)
+        self.button_tickets.setGeometry(QtCore.QRect(380, 140, 151, 51))
+        self.button_tickets.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
-        self.button_menu_4.setObjectName("button_menu_4")
+        self.button_tickets.setObjectName("button_tickets")
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 561, 25))
@@ -68,9 +68,9 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p>Atualizar servicos universitários</p></body></html>"))
         self.button_menu.setText(_translate("MainWindow", "Voltar ao menu"))
-        self.button_menu_2.setText(_translate("MainWindow", "Localização"))
-        self.button_menu_3.setText(_translate("MainWindow", "Transporte"))
-        self.button_menu_4.setText(_translate("MainWindow", "Bilhetes"))
+        self.button_localization.setText(_translate("MainWindow", "Localização"))
+        self.button_transport.setText(_translate("MainWindow", "Transporte"))
+        self.button_tickets.setText(_translate("MainWindow", "Bilhetes"))
 
 
 if __name__ == "__main__":
