@@ -1,19 +1,19 @@
 from PyQt5 import QtWidgets
-from autoSearchEvent import Ui_MainWindow
+from autoCreateEvent import Ui_MainWindow
 
 import queries
 import main_screen
 
-class searchScreen(QtWidgets.QMainWindow):
+class createScreen(QtWidgets.QMainWindow):
     def __init__(self):
-        super(searchScreen, self).__init__()
+        super(createScreen, self).__init__()
         self.ui = Ui_MainWindow() # Load ui file for main window
         self.ui.setupUi(self)
         self.anotherwindow = None
         self.bypass = False
 
         # Connect buttons
-        self.ui.button_search_events.clicked.connect(self.handle_search_events)
+        self.ui.button_create_event.clicked.connect(self.handle_create_event)
         self.ui.button_menu.clicked.connect(self.handle_menu)
 
     # Handles
@@ -25,26 +25,17 @@ class searchScreen(QtWidgets.QMainWindow):
         return
 
 
-    def handle_search_events(self):
-        event_type = str(self.ui.combo_box_choose_event_type.currentText())
-        date_start = self.ui.date_edit_start.date().toPyDate()
-        date_end = self.ui.date_edit_end.date().toPyDate()
+    def handle_create_event(self):
+        date = self.ui.date_edit.date().toPyDate()
         organizer_cpf = self.ui.line_edit_cpf.text()
 
         # Deals with empty cpf or invalid amount of digits
-        if organizer_cpf == "...":
-            organizer_cpf = None
-        elif len(organizer_cpf) != 14:
+        if organizer_cpf == "..." or len(organizer_cpf) != 14:
             self.warning("CPF inválido!")
             return
 
-        organizer_name = self.ui.line_edit_name.text()
-        model = queries.search_events(event_type, date_start, date_end,
-                                      organizer_cpf, organizer_name)
-        if model:
-            self.ui.table_search_results.setModel(model)
-        else:
-            self.warning("Nenhuma festa com esses parâmetros encontrada!")
+        message = queries.create_uni_event(date, organizer_cpf)
+        self.warning(message)
 
 
     def warning(self, message):
@@ -85,6 +76,6 @@ class searchScreen(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     import sys
     APP = QtWidgets.QApplication(sys.argv)
-    GUI = searchScreen()
+    GUI = createScreen()
     GUI.show()
     sys.exit(APP.exec_())

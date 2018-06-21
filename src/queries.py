@@ -27,7 +27,7 @@ def temporary_test():
     command = ""
     commands = []
     data = []
-    
+
     # Read file
     with open("src/sample_table.sql", "r") as f:
         data = [line.rstrip() for line in f]
@@ -79,6 +79,19 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
     """
     return temporary_test()     # TODO: Remove
 
+
+def create_uni_event(date, organizer_cpf):
+    """
+    Return:
+        message: str
+    The message should contain sucess or error information.
+    """
+    return "Testando a inserção"    # TODO: Remove
+
+
+def update_uni_event(date, organizer_cpf, new_date, new_cpf):
+    pass
+    return "Testing"
 
 def connect_database():
     db = QtSql.QSqlDatabase.addDatabase('QSQLITE')

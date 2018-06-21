@@ -132,7 +132,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.line_edit_name)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.button_search_events = QtWidgets.QPushButton(self.centralWidget)
-        self.button_search_events.setGeometry(QtCore.QRect(160, 590, 131, 51))
+        self.button_search_events.setGeometry(QtCore.QRect(210, 560, 131, 51))
         self.button_search_events.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
         self.button_search_events.setObjectName("button_search_events")
@@ -141,6 +141,11 @@ class Ui_MainWindow(object):
         self.table_search_results.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
         self.table_search_results.setObjectName("table_search_results")
+        self.button_menu = QtWidgets.QPushButton(self.centralWidget)
+        self.button_menu.setGeometry(QtCore.QRect(900, 760, 151, 51))
+        self.button_menu.setStyleSheet("font: 14pt \"Cantarell\";\n"
+"color: white")
+        self.button_menu.setObjectName("button_menu")
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 1200, 25))
@@ -172,6 +177,7 @@ class Ui_MainWindow(object):
         self.line_edit_cpf.setInputMask(_translate("MainWindow", "999.999.999.99"))
         self.label_9.setText(_translate("MainWindow", "<html><head/><body><p>Organizador-Nome</p></body></html>"))
         self.button_search_events.setText(_translate("MainWindow", "Pesquisar"))
+        self.button_menu.setText(_translate("MainWindow", "Voltar ao menu"))
 
 
 if __name__ == "__main__":
