@@ -74,23 +74,6 @@ class Ui_MainWindow(object):
         self.date_edit.setObjectName("date_edit")
         self.horizontalLayout_2.addWidget(self.date_edit)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setSpacing(6)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label_12 = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_12.setStyleSheet("font: 14pt \"Cantarell\";\n"
-"color: white")
-        self.label_12.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_12.setObjectName("label_12")
-        self.horizontalLayout.addWidget(self.label_12)
-        self.spinBox = QtWidgets.QSpinBox(self.verticalLayoutWidget)
-        self.spinBox.setStyleSheet("font: 14pt \"Cantarell\";\n"
-"color: white")
-        self.spinBox.setMinimum(1)
-        self.spinBox.setMaximum(100000)
-        self.spinBox.setObjectName("spinBox")
-        self.horizontalLayout.addWidget(self.spinBox)
-        self.verticalLayout.addLayout(self.horizontalLayout)
         self.button_create_event = QtWidgets.QPushButton(self.centralWidget)
         self.button_create_event.setGeometry(QtCore.QRect(460, 550, 131, 51))
         self.button_create_event.setStyleSheet("font: 14pt \"Cantarell\";\n"
@@ -124,7 +107,6 @@ class Ui_MainWindow(object):
         self.line_edit_cpf.setInputMask(_translate("MainWindow", "999.999.999.99"))
         self.label_6.setText(_translate("MainWindow", "<html><head/><body><p>Data</p></body></html>"))
         self.date_edit.setDisplayFormat(_translate("MainWindow", "d/M/yy"))
-        self.label_12.setText(_translate("MainWindow", "<html><head/><body><p>Preço</p></body></html>"))
         self.button_create_event.setText(_translate("MainWindow", "Criar"))
         self.button_menu.setText(_translate("MainWindow", "Voltar ao menu"))
 

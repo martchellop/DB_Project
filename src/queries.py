@@ -90,8 +90,13 @@ def create_uni_event(date, organizer_cpf):
 
 
 def update_uni_event(date, organizer_cpf, new_date, new_cpf):
-    pass
-    return "Testing"
+    """
+    Return:
+        message: str
+    The message should contain sucess or error information.
+    """
+    return "Testing"    # TODO: Remove
+
 
 def connect_database():
     db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
@@ -106,10 +111,14 @@ def connect_database():
 
 
 def create_table():
+    # TODO
+    # This should call Marcelos script to create the table
     pass
 
 
 def populate_table():
+    # TODO
+    # This should call SOMEONES script to populate the table
     pass
 
 

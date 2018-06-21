@@ -1,57 +1,29 @@
 from PyQt5 import QtWidgets
-from autoMainWindow import Ui_MainWindow
-
-import search_event
-import create_event
-import update_event
-import update_services
+from autoUpdateServices import Ui_MainWindow
 
 import queries
+import main_screen
 
-class MainScreen(QtWidgets.QMainWindow):
+class updateServices(QtWidgets.QMainWindow):
     def __init__(self):
-        super(MainScreen, self).__init__()
+        super(updateServices, self).__init__()
         self.ui = Ui_MainWindow() # Load ui file for main window
         self.ui.setupUi(self)
         self.anotherwindow = None
         self.bypass = False
 
-        # Connect general buttons
-        self.ui.button_search_events.clicked.connect(self.handle_search_events)
-
-        # Connect university buttons
-        self.ui.button_uni_create.clicked.connect(self.handle_uni_create)
-        self.ui.button_uni_update.clicked.connect(self.handle_uni_update)
-        self.ui.button_uni_services.clicked.connect(self.handle_uni_services)
-
-        # Conect useless buttons
-        self.ui.button_wed_create.clicked.connect(self.handle_not_implemented)
-        self.ui.button_wed_update.clicked.connect(self.handle_not_implemented)
-        self.ui.button_wed_services.clicked.connect(self.handle_not_implemented)
-
+        # Connect buttons
+        self.ui.button_localization.clicked.connect(self.handle_localization)
+        self.ui.button_transport.clicked.connect(self.handle_transport)
+        self.ui.button_ticket.clicked.connect(self.handle_ticket)
 
     # Handles
-    def handle_not_implemented(self):
-        self.warning("O sistema parece estar fora do ar, por favor tentar mais tarde")
-
-    def handle_uni_create(self):
-        self.change_windows(create_event.createScreen())
-
-    def handle_uni_update(self):
-        self.change_windows(update_event.updateScreen())
-
-    def handle_uni_services(self):
-        self.change_windows(update_services.updateServices())
-
-    def handle_search_events(self):
-        self.change_windows(search_event.searchScreen())
-
-
-    def change_windows(self, new_window):
-        self.anotherwindow = new_window
+    def handle_menu(self):
+        self.anotherwindow = main_screen.MainScreen()
         self.anotherwindow.show()
         self.bypass = True
         self.close()
+        return
 
 
     def warning(self, message):
@@ -66,7 +38,6 @@ class MainScreen(QtWidgets.QMainWindow):
 
         if box.clickedButton() == button_yes:  # Yes pressed
             box.close()
-
 
     # Overloading classes
     def closeEvent(self, event):
@@ -93,6 +64,6 @@ class MainScreen(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     import sys
     APP = QtWidgets.QApplication(sys.argv)
-    GUI = MainScreen()
+    GUI = updateServices()
     GUI.show()
     sys.exit(APP.exec_())
