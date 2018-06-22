@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets
 from autoUpdateLocalization import Ui_MainWindow
 
+import update_services
 import queries
-import main_screen
 import utils
 
 
@@ -18,9 +18,32 @@ class updateLocalization(QtWidgets.QMainWindow):
         self.ui.button_update_event.clicked.connect(self.handle_update_event)
         self.ui.button_menu.clicked.connect(self.handle_menu)
 
+        # Connect type box to make price visible or not
+        self.ui.choose_type.activated.connect(self.change_price_option)
+        self.change_price_option()
+
+
+    # Makes the price visible/invisible
+    def change_price_option(self):
+        option = self.ui.choose_type.currentText()
+
+        # Make invisible
+        if 'Adicionar' in option or 'Remover' in option:
+            stylesheet = 'font: 14pt "Cantarell"; color: rgb(46, 52, 54);'
+        else:
+            stylesheet = 'font: 14pt "Cantarell"; color: white;'
+
+        self.ui.text_price.setStyleSheet(stylesheet)
+        self.ui.line_edit_price.setStyleSheet(stylesheet)
+        self.ui.label_event_info.setStyleSheet(stylesheet)
+        self.ui.label_cpf.setStyleSheet(stylesheet)
+        self.ui.label_data.setStyleSheet(stylesheet)
+        self.ui.line_edit_cpf.setStyleSheet(stylesheet)
+        self.ui.date_edit.setStyleSheet(stylesheet)
+
     # Handles
     def handle_menu(self):
-        self.anotherwindow = main_screen.MainScreen()
+        self.anotherwindow = update_services.updateServices()
         self.anotherwindow.show()
         self.bypass = True
         self.close()
@@ -28,16 +51,29 @@ class updateLocalization(QtWidgets.QMainWindow):
 
 
     def handle_update_event(self):
-        date = self.ui.date_edit.date().toPyDate()
-        organizer_cpf = self.ui.line_edit_cpf.text()
-        new_date, new_cpf = None, None
+        option = self.ui.choose_type.currentText()
+        cep = self.ui.line_edit_cpf.text()
 
         # Deals with empty cpf or invalid amount of digits
-        if organizer_cpf == "..." or len(organizer_cpf) != 14:
-            utils.warning("CPF inválido!")
+        if cep == "-" or len(cep) != 9:
+            utils.warning("cep inválido!")
             return
 
-        message = queries.update_uni_event(date, organizer_cpf, new_date, new_cpf)
+        if 'Adicionar' in option:
+            message = queries.localization_service(cep, create=True)
+        elif 'Remover' in option:
+            message = queries.localization_service(cep, create=False)
+        else:   # Update price
+            date = self.ui.date_edit.date().toPyDate()
+            organizer_cpf = self.ui.line_edit_cpf.text()
+            price = int(self.ui.line_edit_price.text())
+
+            # Deals with empty cpf or invalid amount of digits
+            if organizer_cpf == "..." or len(organizer_cpf) != 14:
+                utils.warning("CPF inválido!")
+                return
+
+            message = queries.update_localization_service(cep, price)
         utils.warning(message)
 
     # Overloading classes

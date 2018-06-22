@@ -10,6 +10,7 @@ import update_tickets
 
 import utils
 
+
 class updateServices(QtWidgets.QMainWindow):
     def __init__(self):
         super(updateServices, self).__init__()
@@ -23,12 +24,10 @@ class updateServices(QtWidgets.QMainWindow):
                 self.handle_menu(main_screen.MainScreen))
         self.ui.button_localization.clicked.connect(lambda x: \
                 self.handle_menu(update_localization.updateLocalization))
-        """
         self.ui.button_transport.clicked.connect(lambda x: \
-                self.handle_menu(main_screen.updateTransport))
+                utils.warning("O sistema parece estar fora do ar, por favor tentar mais tarde"))
         self.ui.button_tickets.clicked.connect(lambda x: \
-                self.handle_menu(main_screen.updateTickets))
-        """
+                self.handle_menu(update_tickets.updateTickets))
 
 
     # Handles

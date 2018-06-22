@@ -40,7 +40,7 @@
 color: white</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualizar chácaras&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualizar bilhetes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -49,9 +49,9 @@ color: white</string>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>290</y>
-      <width>521</width>
+      <x>50</x>
+      <y>170</y>
+      <width>536</width>
       <height>231</height>
      </rect>
     </property>
@@ -163,6 +163,81 @@ color: white</string>
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_ticket_number">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 14pt &quot;Cantarell&quot;;
+color: white</string>
+           </property>
+           <property name="text">
+            <string>Nº</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="line_edit_id">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 14pt &quot;Cantarell&quot;;
+color: white</string>
+           </property>
+           <property name="inputMask">
+            <string>99999</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="choose_type">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 14pt &quot;Cantarell&quot;;
+color: white</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>Adicionar</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Remover</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="button_update_event">
@@ -187,7 +262,7 @@ color: white</string>
      <rect>
       <x>80</x>
       <y>670</y>
-      <width>161</width>
+      <width>171</width>
       <height>51</height>
      </rect>
     </property>
@@ -199,38 +274,11 @@ color: white</string>
      <string>Voltar aos serviços</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_event_info">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>230</y>
-      <width>311</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <weight>2</weight>
-      <italic>true</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 50 oblique 20 &quot;Cantarell&quot;;
-color: white</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Informações da festa:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>80</y>
+      <y>110</y>
       <width>311</width>
       <height>41</height>
      </rect>
@@ -252,142 +300,6 @@ color: white</string>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>130</y>
-      <width>312</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>40</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Cantarell&quot;;
-color: white</string>
-       </property>
-       <property name="text">
-        <string>CEP</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="line_edit_cep">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Cantarell&quot;;
-color: white</string>
-       </property>
-       <property name="inputMask">
-        <string>99999-999</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="choose_type">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Cantarell&quot;;
-color: white</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Adicionar</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Remover</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Atualizar</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>130</y>
-      <width>214</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="text_price">
-       <property name="maximumSize">
-        <size>
-         <width>50</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Cantarell&quot;;
-color: white</string>
-       </property>
-       <property name="text">
-        <string>Preço</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="line_edit_price">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;Cantarell&quot;;
-color: white</string>
-       </property>
-       <property name="inputMask">
-        <string>99999</string>
-       </property>
-       <property name="text">
-        <string>1000</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

@@ -2,21 +2,20 @@
 File to connect to our SGBD and perform necesary queries.
 
 
-DATA DEFINITIONS:
+GENERAL DATA DEFINITIONS:
+    event_type: str
+        Options: "Ambos", "Casamento", "Festa"
 
-event_type: str
-    "Ambos", "Casamento", "Festa"
+    date_start: datetime.date
 
-date_start: datetime.date
+    date_end: datetime.date
 
-date_end: datetime.date
+    organizer_cpf: str
+        "nnn.nnn.nnn.nn" where "n" is a numeric(0-9)
+        None    if the user doesnt care
 
-organizer_cpf: str
-    "nnn.nnn.nnn.nn" where "n" is a numeric(0-9)
-    None    if the user doesnt care
-
-organizer_name: str
-    None    if the user doesnt care
+    organizer_name: str
+        None    if the user doesnt care
 """
 
 from PyQt5 import QtSql, QtGui
@@ -29,8 +28,8 @@ def temporary_test():
     data = []
 
     # Read file
-    with open("src/sample_table.sql", "r") as f:
-        data = [line.rstrip() for line in f]
+    with open("src/sample_table.sql", "r") as input_file:
+        data = [line.rstrip() for line in input_file]
 
     # Join multiple lines in 1 comamnd
     for line in data:
@@ -40,7 +39,7 @@ def temporary_test():
         else:
             command += line
 
-    db = connect_database()
+    database = connect_database()
 
     # For temporary executing the scripts
     """
@@ -56,7 +55,7 @@ def temporary_test():
     model.select()
     print(model.rowCount())
 
-    query = QtSql.QSqlQuery("SELECT * FROM organizador", db)
+    query = QtSql.QSqlQuery("SELECT * FROM organizador", database)
     model.setQuery(query)
     model.submitAll()
 
@@ -65,6 +64,8 @@ def temporary_test():
 
 def search_events(event_type, date_start, date_end, organizer_cpf, organizer_name):
     """
+    Searches all events for events that match the users options.
+
     Return:
         model: QtSql.QSqlTableModel()
 
@@ -82,6 +83,8 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
 
 def create_uni_event(date, organizer_cpf):
     """
+    Creates a new university event.
+
     Return:
         message: str
     The message should contain sucess or error information.
@@ -91,6 +94,8 @@ def create_uni_event(date, organizer_cpf):
 
 def update_uni_event(date, organizer_cpf, new_date, new_cpf):
     """
+    Updates a university event with new information
+
     Return:
         message: str
     The message should contain sucess or error information.
@@ -98,16 +103,73 @@ def update_uni_event(date, organizer_cpf, new_date, new_cpf):
     return "Testing"    # TODO: Remove
 
 
-def connect_database():
-    db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-    db.setDatabaseName('src/test_events.db')
+def localization_service(cep, create):
+    """
+    Adds or removes a localization service
 
-    # TODO: Handle the error 
-    if not db.open():
+    Return:
+        messsage: str
+    The message should contain sucess or error information.
+    Parameters:
+        cep: str
+            ex: "99999-999"
+        create: bool
+    If create is True, create the guy in the database;
+        If False, remove him
+    """
+    return "Testing"    # TODO: Remove
+
+
+def update_localization_service(cep, price):
+    """
+    Updates a localization service of a party with a different price
+    If the party hasn't hired that cep a error should be returned
+
+    Return:
+        messsage: str
+    The message should contain sucess or error information.
+    Parameters:
+        cep: str
+            ex: "99999-999"
+        create: int
+            ex: 1000
+            No floating points are accepeted
+    """
+    return "Testing"
+
+
+def tickets_service(date, organizer_cpf, ticket_id=None):
+    """
+    Adds or removes a ticket of a university party.
+    If ticket_id is a number (not None) we should remove that ticket from the database.
+    If the ticket_id is None, it means we want to add a new ticket.
+        Use the Serial proprierty in the database to insert it as the next available number.
+
+    Return:
+        messsage: str
+    The message should contain sucess or error information.
+    Parameters
+        cep: str
+            ex: "99999-999"
+        ticket_id: int
+        create: bool
+    If create is True, create the ticket and associate it with the party
+        If False, remove the ticket from the party
+    """
+    return "Testing"    # TODO: Remove
+
+
+
+def connect_database():
+    database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
+    database.setDatabaseName('src/test_events.db')
+
+    # TODO: Handle the error  (or not....)
+    if not database.open():
         print("Something went wront")
         exit(1)
 
-    return db
+    return database
 
 
 def create_table():
