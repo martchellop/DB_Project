@@ -75,11 +75,11 @@ class Ui_MainWindow(object):
         self.button_wed_services.setObjectName("button_wed_services")
         self.verticalLayout_5.addWidget(self.button_wed_services)
         self.horizontalLayout.addLayout(self.verticalLayout_5)
-        self.button_stats = QtWidgets.QPushButton(self.centralWidget)
-        self.button_stats.setGeometry(QtCore.QRect(290, 460, 278, 33))
-        self.button_stats.setStyleSheet("font: 14pt \"Cantarell\";\n"
+        self.button_reports = QtWidgets.QPushButton(self.centralWidget)
+        self.button_reports.setGeometry(QtCore.QRect(290, 460, 278, 33))
+        self.button_reports.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
-        self.button_stats.setObjectName("button_stats")
+        self.button_reports.setObjectName("button_reports")
         self.button_search_events = QtWidgets.QPushButton(self.centralWidget)
         self.button_search_events.setGeometry(QtCore.QRect(290, 420, 278, 33))
         self.button_search_events.setStyleSheet("font: 14pt \"Cantarell\";\n"
@@ -132,7 +132,7 @@ class Ui_MainWindow(object):
         self.button_wed_create.setText(_translate("MainWindow", "Cadastro de festa de casamento"))
         self.button_wed_update.setText(_translate("MainWindow", "Atualização de festa de casamento"))
         self.button_wed_services.setText(_translate("MainWindow", "Serviços das festas de casamento"))
-        self.button_stats.setText(_translate("MainWindow", "Relatórios"))
+        self.button_reports.setText(_translate("MainWindow", "Relatórios"))
         self.button_search_events.setText(_translate("MainWindow", "Pesquisar festas"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p>Festas Universitárias</p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p>Festas de Casamento</p></body></html>"))

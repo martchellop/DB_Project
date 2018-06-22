@@ -40,7 +40,7 @@
 color: white</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;NomeDaEmpresa&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Eventos&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -145,7 +145,7 @@ color: white</string>
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="button_stats">
+   <widget class="QPushButton" name="button_reports">
     <property name="geometry">
      <rect>
       <x>290</x>

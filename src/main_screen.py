@@ -1,9 +1,10 @@
 from PyQt5 import QtWidgets
 from autoMainWindow import Ui_MainWindow
 
-import search_event
+import reports
 import create_event
 import update_event
+import search_event
 import update_services
 
 import queries
@@ -19,6 +20,7 @@ class MainScreen(QtWidgets.QMainWindow):
 
         # Connect general buttons
         self.ui.button_search_events.clicked.connect(self.handle_search_events)
+        self.ui.button_reports.clicked.connect(self.handle_reports)
 
         # Connect university buttons
         self.ui.button_uni_create.clicked.connect(self.handle_uni_create)
@@ -46,6 +48,9 @@ class MainScreen(QtWidgets.QMainWindow):
 
     def handle_search_events(self):
         self.change_windows(search_event.searchScreen())
+
+    def handle_reports(self):
+        self.change_windows(reports.reports())
 
 
     def change_windows(self, new_window):

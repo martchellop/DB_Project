@@ -159,6 +159,26 @@ def tickets_service(date, organizer_cpf, ticket_id=None):
     return "Testing"    # TODO: Remove
 
 
+def reports(report_type):
+    """
+    Runs the report and returns the result as a table
+
+    Return:
+        model: QtSql.QSqlTableModel()
+    Parameters:
+        report_type: int
+        Represents the user option according to the following key:
+            0 As festas que contrataram uma chácara
+            1 O custo médio das festas agrupado por tipo
+            2 A média e o desvio padrão do custo de cada serviço
+            3 A média do preço dos bilhetes que custam mais de 10
+            4 A média da quantidade de convidados de uma festa de casamento
+            5 As empresas que fornecem algum tipo de serviço para festa universitária
+
+    OBS: If no events match the query, return a empty model
+    """
+    return temporary_test()     # TODO: Remove
+
 
 def connect_database():
     database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
