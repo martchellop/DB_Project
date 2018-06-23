@@ -39,3 +39,12 @@ INSERT INTO veiculo_tipo VALUES ('minivan', 10);
 
 INSERT INTO transporte_veiculo VALUES ('11111111111111', 'ix35');
 INSERT INTO transporte_veiculo VALUES ('11111111111111', 'minivan');
+
+INSERT INTO aluga VALUES (to_timestamp('2017-04-11', 'YYYY-MM-DD'), '22222222222', '11111111111111');
+INSERT INTO aluga VALUES (to_timestamp('2018-09-12', 'YYYY-MM-DD'), '11111111111', '22222222222222');
+
+INSERT INTO espaco VALUES ('50505050', 'republica', 'endereco', 70, '44444444444444');
+INSERT INTO espaco VALUES ('78171828', 'campo', 'outro endereco', 500, '44444444444444');
+
+INSERT INTO universitaria_espaco VALUES (to_timestamp('2017-05-21', 'YYYY-MM-DD'), '11111111111', '78171828', 200);
+INSERT INTO universitaria_espaco VALUES (to_timestamp('2013-11-05', 'YYYY-MM-DD'), '55555555555', '50505050', 200);
