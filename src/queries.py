@@ -116,13 +116,15 @@ def create_uni_event(date, organizer_cpf):
 
     """
 
-    database = connect_database()
+    organizer_cpf = organizer_cpf.replace('.', '')
 
     query = QtSql.QSqlQuery()
 
-    query.exec_("INSERT INTO festa_tipo VALUES ({0}, {1}, 'universitaria')".format(date, organizer_cpf))
+    query.exec_("INSERT INTO festa_tipo VALUES (to_timestamp('{0}', " \
+    "'YYYY-MM-DD'), {1}, 'universitaria')".format(date, organizer_cpf))
 
-    if query.exec_("INSERT INTO universitaria VALUES ({0}, {1})".format(date, organizer_cpf)):
+    if query.exec_("INSERT INTO universitaria VALUES " \
+        "(to_timestamp('{0}', 'YYYY-MM-DD'), {1}), {2}".format(date, organizer_cpf, None)):
         return "Evento inserido"
 
     return "Falha ao inserir"
@@ -136,7 +138,18 @@ def update_uni_event(date, organizer_cpf, new_date, new_cpf):
         message: str
     The message should contain sucess or error information.
     """
-    return "Testing"    # TODO: Remove
+
+    organizer_cpf = organizer_cpf.replace('.', '')
+    new_cpf = new_cpf.replace('.', '')
+
+    query = QtSql.QSqlQuery()
+
+    if query.exec_("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')," \
+            "organizador = {1} WHERE data = to_timestamp('{2}', 'YYYY-MM-DD')" \
+            "AND organizador = {3}".format(new_date, new_cpf, date, organizer_cpf)):
+        return "Evento atualizado"
+
+    return "Falha ao atualizar"
 
 
 def localization_service(cep, create):
@@ -153,6 +166,12 @@ def localization_service(cep, create):
     If create is True, create the guy in the database;
         If False, remove him
     """
+
+    query = QtSql.QSqlQuery()
+
+    if create and query.exec_("")
+
+
     return "Testing"    # TODO: Remove
 
 
@@ -245,7 +264,7 @@ def create_table():
         else:
             command += line
 
-    database = connect_database()
+#    database = connect_database()
 
     query = QtSql.QSqlQuery()
     for line in commands:
@@ -254,8 +273,6 @@ def create_table():
 
 
 def populate_table():
-
-    pass
 
     # Read file
     with open("populate.sql", "r") as input_file:
@@ -282,6 +299,8 @@ def main():
     Should call the necessary scripts for creating
     the tables and populating them.
     """
+
+    database = connect_database()
     create_table()
     #populate_table()
 
