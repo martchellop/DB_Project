@@ -162,7 +162,9 @@ CREATE TABLE transporte_veiculo (
 	tipo varchar(20) NOT NULL,
 	CONSTRAINT pk_transporte_veiculo PRIMARY KEY (empresa, tipo),
 	CONSTRAINT fk_transporte_veiculo_trans FOREIGN KEY (empresa)
-		REFERENCES transporte(empresa)
+		REFERENCES transporte(empresa),
+	CONSTRAINT fk_transporte_veiculo_mode FOREIGN KEY (tipo)
+		REFERENCES veiculo_tipo(modelo)
 );
 
 CREATE TABLE aluga (
