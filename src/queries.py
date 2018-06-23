@@ -106,25 +106,23 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
     return model
 
 
-def create_uni_event(date, organizer_cpf, t_event, price):
+def create_uni_event(date, organizer_cpf):
     """
     Creates a new university event.
 
     Return:
         message: str
     The message should contain sucess or error information.
+
     """
+
     database = connect_database()
 
     query = QtSql.QSqlQuery()
 
-    query.exec_("INSERT INTO festa_tipo (data, organizador, tipo)
-                VALUES ({0}, {1}, {2})".format(date, organizer_cpf,
-                                               t_event))
+    query.exec_("INSERT INTO festa_tipo VALUES ({0}, {1}, 'universitaria')".format(date, organizer_cpf))
 
-    if query.exec_("INSERT INTO universitario (data, organizador, preco)
-                   VALUES ({0} {1} {2})".format(date, organizer_cpf,
-                                                price)):
+    if query.exec_("INSERT INTO universitaria VALUES ({0}, {1})".format(date, organizer_cpf)):
         return "Evento inserido"
 
     return "Falha ao inserir"
@@ -223,7 +221,7 @@ def reports(report_type):
 
 
 def connect_database():
-    database = QtSql.QSqlDatabase.addDatabase('QPSQL')
+    database = QtSql.QSqlDatabase.addDatabase('QPSQL7')
     database.setDatabaseName('src/events.db')
 
     # TODO: Handle the error  (or not....)
@@ -256,6 +254,9 @@ def create_table():
 
 
 def populate_table():
+
+    pass
+
     # Read file
     with open("populate.sql", "r") as input_file:
         data = [line.rstrip() for line in input_file]
@@ -282,7 +283,7 @@ def main():
     the tables and populating them.
     """
     create_table()
-    populate_table()
+    #populate_table()
 
 
 if __name__ == "__main__":
