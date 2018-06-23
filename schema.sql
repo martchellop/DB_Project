@@ -10,15 +10,15 @@ CREATE TABLE festa_tipo (
 	data timestamp NOT NULL,
 	organizador char(11) NOT NULL,
 	tipo varchar(21) NOT NULL,
-	CONSTRAINT pk_festa_tipo PRIMARY KEY (data, organizador)
+	CONSTRAINT pk_festa_tipo PRIMARY KEY (data, organizador),
+	CONSTRAINT fk_organizador FOREIGN KEY (organizador)
+		REFERENCES organizador(CPF)
 );
 
 CREATE TABLE universitaria (
 	data timestamp NOT NULL,
 	organizador char(11) NOT NULL,
 	CONSTRAINT pk_universitaria PRIMARY KEY (data, organizador),
-	CONSTRAINT fk_universitaria_org FOREIGN KEY (organizador)
-		REFERENCES organizador(CPF),
 	CONSTRAINT fk_universitaria_fes FOREIGN KEY (data, organizador)
 		REFERENCES festa_tipo(data, organizador)
 );
