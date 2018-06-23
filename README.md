@@ -5,7 +5,7 @@ Assignment report on overleaf [here](https://www.overleaf.com/16613395pjytnbwkjq
 
 # Installation:
 
-Python3 is required. For installing the necessary libs, just run:
+Python 3.6.1+ is required (otherwise doesn't work). For installing the necessary libs, just run:
 
 ```pip3 install -r src/requirements.txt```
 

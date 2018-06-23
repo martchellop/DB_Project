@@ -20,6 +20,7 @@ GENERAL DATA DEFINITIONS:
 
 from PyQt5 import QtSql, QtGui
 
+database = QtSql.QSqlDatabase()
 
 def temporary_test():
     # TODO: Remove after everything is ready.
@@ -125,6 +126,7 @@ def create_uni_event(date, organizer_cpf):
 
     if query.exec_("INSERT INTO universitaria VALUES " \
         "(to_timestamp('{0}', 'YYYY-MM-DD'), {1}), {2}".format(date, organizer_cpf, None)):
+        database.close()
         return "Evento inserido"
 
     return "Falha ao inserir"
@@ -167,9 +169,9 @@ def localization_service(cep, create):
         If False, remove him
     """
 
-    query = QtSql.QSqlQuery()
+#    query = QtSql.QSqlQuery()
 
-    if create and query.exec_("")
+#    if create and query.exec_("")
 
 
     return "Testing"    # TODO: Remove
@@ -239,19 +241,11 @@ def reports(report_type):
     return temporary_test()     # TODO: Remove
 
 
-def connect_database():
-    database = QtSql.QSqlDatabase.addDatabase('QPSQL7')
-    database.setDatabaseName('src/events.db')
-
-    # TODO: Handle the error  (or not....)
-    if not database.open():
-        print("Something went wrong")
-        exit(1)
-
-    return database
-
-
 def create_table():
+    command = ""
+    commands = []
+    data = []
+
     # Read file
     with open("schema.sql", "r") as input_file:
         data = [line.rstrip() for line in input_file]
@@ -259,21 +253,22 @@ def create_table():
     # Join multiple lines in 1 comamnd
     for line in data:
         if ";" in line:
-            commands.append(command + line)
             command = ""
+            commands.append(command + line)
         else:
-            command += line
-
-#    database = connect_database()
+            commands += line
 
     query = QtSql.QSqlQuery()
     for line in commands:
         query.exec_(line)
 
 
-
 def populate_table():
+    command = ""
+    commands = []
+    data = []
 
+    print('populating! aaaids')
     # Read file
     with open("populate.sql", "r") as input_file:
         data = [line.rstrip() for line in input_file]
@@ -281,29 +276,29 @@ def populate_table():
     # Join multiple lines in 1 comamnd
     for line in data:
         if ";" in line:
-            commands.append(command + line)
             command = ""
+            commands.append(command + line)
         else:
-            command += line
-
-    database = connect_database()
+            commands += line
 
     query = QtSql.QSqlQuery()
     for line in commands:
         query.exec_(line)
 
 
-
-def main():
-    """
-    Should call the necessary scripts for creating
-    the tables and populating them.
-    """
-
-    database = connect_database()
-    create_table()
-    #populate_table()
+def create_database():
+    database.addDatabase('QPSQL')
+    database.setDatabaseName('src/events.db')
+    database.setUserName('user')
+    database.setPort(5432)
+    if not database.open():
+        print('not opening')
+        print(database.lastError().text())
 
 
-if __name__ == "__main__":
-    main()
+
+create_database()
+#create_table()
+#populate_table()
+
+
