@@ -20,7 +20,6 @@ GENERAL DATA DEFINITIONS:
 
 from PyQt5 import QtSql, QtGui
 
-database = QtSql.QSqlDatabase()
 
 def temporary_test():
     # TODO: Remove after everything is ready.
@@ -117,6 +116,8 @@ def create_uni_event(date, organizer_cpf):
 
     """
 
+    database = connect_database()
+
     organizer_cpf = organizer_cpf.replace('.', '')
 
     query = QtSql.QSqlQuery()
@@ -140,6 +141,8 @@ def update_uni_event(date, organizer_cpf, new_date, new_cpf):
         message: str
     The message should contain sucess or error information.
     """
+
+    database = connect_database()
 
     organizer_cpf = organizer_cpf.replace('.', '')
     new_cpf = new_cpf.replace('.', '')
@@ -246,6 +249,8 @@ def create_table():
     commands = []
     data = []
 
+    print('Creating database schema...')
+
     # Read file
     with open("schema.sql", "r") as input_file:
         data = [line.rstrip() for line in input_file]
@@ -268,7 +273,8 @@ def populate_table():
     commands = []
     data = []
 
-    print('populating! aaaids')
+    print('Populating database...')
+
     # Read file
     with open("populate.sql", "r") as input_file:
         data = [line.rstrip() for line in input_file]
@@ -286,19 +292,21 @@ def populate_table():
         query.exec_(line)
 
 
-def create_database():
-    database.addDatabase('QPSQL')
+def connect_database():
+    database = QtSql.QSqlDatabase.addDatabase('QPSQL')
     database.setDatabaseName('src/events.db')
     database.setUserName('user')
     database.setPort(5432)
     if not database.open():
-        print('not opening')
+        print('Unable to open database connection')
         print(database.lastError().text())
 
 
 
-create_database()
-#create_table()
-#populate_table()
+if __name__ == "__main__":
+
+    connect_database()
+    create_table()
+    populate_table()
 
 
