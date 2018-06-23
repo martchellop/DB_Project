@@ -18,6 +18,7 @@ CREATE TABLE festa_tipo (
 CREATE TABLE universitaria (
 	data timestamp NOT NULL,
 	organizador char(11) NOT NULL,
+	preco int,
 	CONSTRAINT pk_universitaria PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_universitaria_fes FOREIGN KEY (data, organizador)
 		REFERENCES festa_tipo(data, organizador)
