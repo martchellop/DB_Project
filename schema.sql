@@ -10,10 +10,10 @@ CREATE TABLE festa_tipo (
 	data timestamp NOT NULL,
 	organizador char(11) NOT NULL,
 	tipo varchar(21) NOT NULL,
-	CONSTRAINT pk_festa_tipo PRIMARY KEY (data, organizador)
+	CONSTRAINT pk_festa_tipo PRIMARY KEY (data, organizador),
 );
 
-CREATE TABLE universitaria (
+CREATE TABLE universitario (
 	data timestamp NOT NULL,
 	organizador char(11) NOT NULL,
 	preco smallint NOT NULL,

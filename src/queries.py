@@ -74,14 +74,39 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
 
     In case "Ambos" is choosen as event_type, we do not include Conjuges.
     Expected order for parties and both:
-        Type    Date    CPF     Nome    Conjuge1    Conjuge2
-
+        Type    Date    CPF     Nome
     OBS: If no events match the query, return a empty model
     """
-    return temporary_test()     # TODO: Remove
+    database = connect_database()
+
+    model = QtSql.QSqlTableModel()
+    model.setTable("Eventos")
+    model.setEditStrategy(QSqlTableModel.OnManualSubmit)
+
+    model.select()
+
+    # Queries
+    q_ambos = "SELECT "
+    q_casamento = "SELECT "
+    q_festa = "SELECT "
+
+    if event_type == "Ambos":
+        query = QtSql.QSqlQuery(q_ambos, database)
+    elif event_type == "Casamento":
+        query = QtSql.QSqlQuery(q_casamento)
+    elif event_type == "Festa":
+        query = QtSql.QSqlQuery(q_festa, database)
+    else:
+        query - QtSql.QSqlQuery()
 
 
-def create_uni_event(date, organizer_cpf):
+    model.setQuery(query)
+    model.submitAll()
+
+    return model
+
+
+def create_uni_event(date, organizer_cpf, t_event, price):
     """
     Creates a new university event.
 
@@ -89,7 +114,20 @@ def create_uni_event(date, organizer_cpf):
         message: str
     The message should contain sucess or error information.
     """
-    return "Testando a inserção"    # TODO: Remove
+    database = connect_database()
+
+    query = QtSql.QSqlQuery()
+
+    query.exec_("INSERT INTO festa_tipo (data, organizador, tipo)
+                VALUES ({0}, {1}, {2})".format(date, organizer_cpf,
+                                               t_event))
+
+    if query.exec_("INSERT INTO universitario (data, organizador, preco)
+                   VALUES ({0} {1} {2})".format(date, organizer_cpf,
+                                                price)):
+        return "Evento inserido"
+
+    return "Falha ao inserir"
 
 
 def update_uni_event(date, organizer_cpf, new_date, new_cpf):
@@ -141,9 +179,11 @@ def update_localization_service(cep, price):
 def tickets_service(date, organizer_cpf, ticket_id=None):
     """
     Adds or removes a ticket of a university party.
-    If ticket_id is a number (not None) we should remove that ticket from the database.
+    If ticket_id is a number (not None) we should remove that
+        ticket from the database.
     If the ticket_id is None, it means we want to add a new ticket.
-        Use the Serial proprierty in the database to insert it as the next available number.
+        Use the Serial proprierty in the database to insert it
+        as the next available number.
 
     Return:
         messsage: str
@@ -172,8 +212,10 @@ def reports(report_type):
             1 O custo médio das festas agrupado por tipo
             2 A média e o desvio padrão do custo de cada serviço
             3 A média do preço dos bilhetes que custam mais de 10
-            4 A média da quantidade de convidados de uma festa de casamento
-            5 As empresas que fornecem algum tipo de serviço para festa universitária
+            4 A média da quantidade de convidados de uma festa de
+                casamento
+            5 As empresas que fornecem algum tipo de serviço para
+                festa universitária
 
     OBS: If no events match the query, return a empty model
     """
@@ -181,32 +223,63 @@ def reports(report_type):
 
 
 def connect_database():
-    database = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-    database.setDatabaseName('src/test_events.db')
+    database = QtSql.QSqlDatabase.addDatabase('QPSQL')
+    database.setDatabaseName('src/events.db')
 
     # TODO: Handle the error  (or not....)
     if not database.open():
-        print("Something went wront")
+        print("Something went wrong")
         exit(1)
 
     return database
 
 
 def create_table():
-    # TODO
-    # This should call Marcelos script to create the table
-    pass
+    # Read file
+    with open("schema.sql", "r") as input_file:
+        data = [line.rstrip() for line in input_file]
+
+    # Join multiple lines in 1 comamnd
+    for line in data:
+        if ";" in line:
+            commands.append(command + line)
+            command = ""
+        else:
+            command += line
+
+    database = connect_database()
+
+    query = QtSql.QSqlQuery()
+    for line in commands:
+        query.exec_(line)
+
 
 
 def populate_table():
-    # TODO
-    # This should call SOMEONES script to populate the table
-    pass
+    # Read file
+    with open("populate.sql", "r") as input_file:
+        data = [line.rstrip() for line in input_file]
+
+    # Join multiple lines in 1 comamnd
+    for line in data:
+        if ";" in line:
+            commands.append(command + line)
+            command = ""
+        else:
+            command += line
+
+    database = connect_database()
+
+    query = QtSql.QSqlQuery()
+    for line in commands:
+        query.exec_(line)
+
 
 
 def main():
     """
-    Should call the necessary scripts for creating the table and populate it.
+    Should call the necessary scripts for creating
+    the tables and populating them.
     """
     create_table()
     populate_table()
