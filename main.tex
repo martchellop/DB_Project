@@ -1,0 +1,143 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Packages
+\usepackage{indentfirst}
+\usepackage{mathptmx}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{graphicx}
+
+\captionsetup[figure]{name=Figura}
+
+\title{BD T1 e T2}
+\makeindex
+
+\begin{document}
+{ \setstretch{1.5}
+\begin{titlepage}
+\begin{center}
+\textbf{UNIVERSIDADE DE SÃO PAULO - USP}\\
+Instituto de Ciências Matemáticas e de Computação - ICMC\\
+Bacharelado em Ciências de Computação\\
+Disciplina de Bases de Dados\\
+Profa. Dr. Elaine Parros M. de Souza\\
+\vspace*{2\baselineskip}
+
+Bruno Gomes Coelho \quad (9791160)\\
+Gabriel Cyrillo dos Santos\quad (9763022)\\
+Gabriel de Melo Cruz\quad (9763043)\\
+Marcello Pagano Silva \quad (9791031)\\
+
+\vspace*{5\baselineskip}
+
+\textbf{TERCEIRO TRABALHO PRÁTICO - TURMA A}\\
+SISTEMA DE GERENCIAMENTO DE EMPRESA DE EVENTOS\\
+\vfill
+
+São Carlos\\
+1 de Junho de 2018
+\end{center}
+\end{titlepage}
+}
+\setstretch{1.5}
+\section{Descrição} \label{sec:descricao}
+
+	Dentro do escopo de oferecimento de logística a festas que a empresa age, a base de dados modelada tem como objetivos principais o armazenamento das informações dos clientes atendidos e das relações entre eles e os serviços terceirizados ofertados. Vale ressaltar que, dado que se trata de uma empresa agregadora de serviços terceirizados para eventos, não serão armazenados dados referentes à quantidades e disponibilidade de cada produto oferecido pelas empresas terceirizadas.
+
+	Um cliente portador de nome, telefone, email e CPF pode organizar uma ou mais festas, sendo elas festas universitárias ou casamentos, sem intersecção entre os tipos de eventos. Independente do tipo escolhido, cada festa terá sua data e organizador como identificadores e como atributo o seu preço total, calculado a partir da soma dos preços de cada serviço adicionado. Toda festa possui um único organizador responsável.
+
+	As empresas prestadoras de serviços serão cadastradas com CNPJ como identificador único, telefone para contato, email, endereço físico e categoria de serviço prestado. Os serviços gerais são classificados em quatro categorias gerais: floricultura, decoração, locação e transporte, havendo tanto serviços em comum para ambos os tipos de festas quanto específicos para cada espécie de ocasião. Nenhum dos serviços são obrigatórios para o cliente, no entanto é necessário que ao menos um deles seja requerido pelo mesmo. Isso é implementado em nível de aplicação.
+    
+Para todos os contratos com os serviços oferecidos, será armazenado o preço. Na base de dados não serão armazenados os produtos específicos que cada cliente contrata e tampouco dados sobre a disponibilidade dos produtos de cada empresa, isto é, não são armazenados dados específicos de empresas terceiras, apenas aqueles mais genéricos como os tipos de produtos oferecidos por uma determinada empresa. 
+
+    No que diz respeito aos casamentos, para o controle dos convidados cada evento possui uma lista de convidados única, contendo diversos convidados identificados pelo nome completo. Claramente, não poderá haver lista de convidados se não houver um casamento ou pelo menos um convidado. Os nomes dos dois conjunges deve constar nas informações do casamento como uma única string, implementado em nível de aplicação. Além disso, pode haver a contratação de um cerimonialista por parte do organizador, contendo nome, telefone para contato e linha de atuação -- ou seja, se a cerimônia será regida sob o cunho de uma religião especificada ou se seguirá ecumênica. Uma vez que a lista de cerimonialistas é pequena, identificamos eles apenas por nome.
+
+	As floriculturas podem ser contratadas somente para os casamentos. É necessário para a pesquisa do organizador a identificação das flores cultivadas por cada floricultura, sendo elas classificadas conjuntamente por cor e espécie. Não há limitações quanto aos tipos de flores requisitados nem à quantidade floriculturas contratadas, podendo ter várias atuando em um mesmo evento.
+    
+	O serviço de decoração também é um serviço que só pode ser requerido por um casamento. Cada empresa oferecerá uma gama de décor, sendo os itens classificados por tipo (roupa de mesa, porcelanato, entre outros), marca e cor. Não há limitações na quantidade de empresas de decoração contratadas nem na quantidade de décor.
+
+	Referente às festas universitárias, cada uma delas possui uma quantidade determinada de bilhetes contendo um número de identificação para controle de fraude, o lote de venda, o seu preço e um valor informando se o bilhete já foi vendido ou não. Uma pessoa pode comprar quantos bilhetes desejar e não são requeridas informações individuais de cada comprador.
+
+	O serviço de transporte também estará atrelado somente as festas universitárias. Cada empresa de transporte possuirá diversos tipos de veículos cadastrados para o requerimento do organizador, contendo informações como modelo, cor e quantidade de assentos. Não serão guardados detalhes sobre o contrato de festa com empresa.
+
+	A locação de espaço é um recurso comum aos dois tipos de festas. Uma empresa prestadora alugará um ou mais espaços identificados pelo CEP, contendo endereço, capacidade total e categoria do local como atributos. Os espaços podem ser divididos em templos ou chácaras, não podendo uma festa alugar mais de um local.
+    
+    Um casamento pode alugar ambos os tipos de lugares (tanto chácaras quanto templos), porém festas universitárias só podem alugar chácaras.
+
+\section{Modelo de Relacionamento}
+
+Com base nas informações apresentadas na Seção~\ref{sec:descricao}, foi montado o seguinte modelo de entidade-relacionamento (página 3).
+\textbf{Observação: A preferência pelo uso de um atributo multivalorado para os nomes da lista de convidados foi uma recomendação expressa da professora Elaine para o projeto que representa melhor a semântica do problema.}
+
+\newpage
+\includegraphics[angle=90, width=440px]{batata__2.png}
+
+
+\includegraphics[width=300px]{T2.png}
+\newpage
+
+\section{Parte 2}
+
+\subsection{Festa/Organizador/Casamento/Universitária}
+Os conjuntos de entidades Organizador e Festa (visto que o segundo é entidade fraca do primeiro) foram mapeados em tabelas separadas. As festas, divididas em Casamento e Universitario, possuem como chave data e organizador tal como especifica a notação do MER.
+
+Nesse sistema, é importante garantir a participação total da entidade festa em relação às suas especificações. Para isso, optamos por criar uma tabela para cada uma das entidades específicas (tabela Casamento e tabela Universitária). Isso implica em que todas as festas devam de fato ser casamentos ou universitárias.
+
+Ainda, podemos garantir que o mapeamento representa com exatidão o MER dado pois não há atributos nulos nas entidades específicas (casamento e universitário) nem na genérica (festa) e, ainda, pois a entidade genérica (festa) não possui relações opcionais.
+
+
+\subsection{Casamento-Conjuges}
+Haverá em um casamento obrigatoriamente dois cônjujes e que ambos devem ser não nulos (definimos casamento como a união de exatamente duas pessoas). É ainda suposto que não haverá pesquisas por nomes de cônjujes (como por exemplo "liste todas as pessoas que já foram cônjujes").
+
+
+\subsection{Casamento-cerimonalista}
+Foi considerado que cerimonialista pode ser nulo. Assim, com vistas a evitar desperdício de espaço nos casos em que não há cerimonialista, foi criada uma tabela à parte para esse propósito. Ainda, é possível pesquisar rapidamente quais são os cerimonialistas e suas áreas de atuação.
+
+
+\subsection{Empresas}
+Neste trabalho há vários tipos de empresas cujos dados devem ser armazenados. Mais, cada tipo de empresa, apesar de terem os mesmos atributos de sua entidade genérica (empresa), tem relações específicas com outras entidades. Dessa maneira, é essencial que empresas de diferentes tipos sejam mapeadas em tabelas distintas para que não haja a possibilidade de relações indesejadas (por exemplo, de floricultura com tipo de veículo).
+
+No entanto, ao mesmo tempo em que é necessário separar as tabelas de diferentes tipos de empresas, é ainda essencial poder procurar uma determinada empresa e descobrir seu tipo sem fazer uma busca exaustiva em cada uma das tabelas específicas. Para solucionar esse problema, portanto, foi criada uma tabela que relaciona todas as empresas com seu determinado tipo. Em aplicação será verificado se não há violação do tipo da empresa nessa tabela (por exemplo, uma empresa de floricultura ser inserida na tabela Empresa-tipo como de locação de veículos).
+
+
+\subsection{Locação-Espaço}
+Supomos aqui que haverá pouca incidência de nulos no que se refere a espaços não vinculados a alguma empresa de locação, isto é, não será um problema pois não haverá incidência alta de nulos nesse caso.
+
+A participação total não há como garantir no contexto de bases de dados e, portanto, será implementada na aplicação futuramente.
+
+
+\subsection{Decoração-Decor}
+Um decor é identificado por marca, cor e tipo e é ligado a apenas uma empresa de decoração, então uma das entradas da tabela decor é o CNPJ da empresa de decoração.
+
+A participação total não há como garantir no contexto de bases de dados e, portanto, será implementada na aplicação futuramente.
+
+
+\subsection{Espaços-Casamento/Universitário}
+Não faz sentido separar em diferentes tabelas para cada relação (uma para universitário e uma para casamento) pois não há atributos específicos de cada uma.
+
+Não garantimos que universitário só pode alugar chácaras, mas armazenamos o tipo do espaço para que isso seja feito em nível de aplicação.
+
+
+\subsection{Transporte/Veículo-transporte/Tipo-veículo}
+Como trata-se de um relacionamento N:N é necessária uma tabela de transição (veículo-transporte) que relaciona as duas tabelas que representam as entidades da relação (tipo-veículo e transporte).
+
+Nesse caso não é possível garantir a participação total de transporte no relacionamento e, sendo assim, isso será tratado em nível de aplicação.
+
+
+\section{Parte 3}
+
+\subsection{Definição das tabelas}
+Como não tinha informações de not null no modelo, eu coloquei aonde achei que devia.
+
+Não fazia sentido ter um campo "categoria" nas tabelas transporte, decoração, floricultura, locação já que essa informação tá na tabela empresa-tipo, então eu tirei esses campos. (tava comentado isso na correção)
+
+A tabela cultiva não fazia sentido e foi removida, ficando só a tabela flor = \{empresa, especie, cor\} em que empresa é fk de floricultura.
+
+Na tabela espaço não é clara a diferença entre tipo e categoria, então tipo foi removido
+
+\end{document}
