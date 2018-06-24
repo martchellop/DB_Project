@@ -117,12 +117,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.addLayout(self.horizontalLayout)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
         self.button_update_event = QtWidgets.QPushButton(self.centralWidget)
-        self.button_update_event.setGeometry(QtCore.QRect(380, 670, 131, 51))
+        self.button_update_event.setGeometry(QtCore.QRect(390, 420, 131, 51))
         self.button_update_event.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
         self.button_update_event.setObjectName("button_update_event")
         self.button_menu = QtWidgets.QPushButton(self.centralWidget)
-        self.button_menu.setGeometry(QtCore.QRect(80, 670, 171, 51))
+        self.button_menu.setGeometry(QtCore.QRect(90, 420, 171, 51))
         self.button_menu.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
         self.button_menu.setObjectName("button_menu")

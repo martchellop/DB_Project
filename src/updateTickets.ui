@@ -243,8 +243,8 @@ color: white</string>
    <widget class="QPushButton" name="button_update_event">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>670</y>
+      <x>390</x>
+      <y>420</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -260,8 +260,8 @@ color: white</string>
    <widget class="QPushButton" name="button_menu">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>670</y>
+      <x>90</x>
+      <y>420</y>
       <width>171</width>
       <height>51</height>
      </rect>
