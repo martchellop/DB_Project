@@ -129,17 +129,12 @@ def update_uni_event(date, organizer_cpf, new_date, new_cpf):
     if new_cpf is not None:
         new_cpf = new_cpf.replace('.', '')
         query.exec_("UPDATE festa_tipo SET organizador = '{0}'\
-                WHERE organizador = {1}".format(new_cpf, organizer_cpf))
-        query.exec_("UPDATE universitaria SET organizador = '{0}'\
-                WHERE organizador = '{1}'".format(new_cpf, organizer_cpf))
+                WHERE data = to_timestamp('{1}', 'YYYY-MM-DD') AND organizador = '{2}'".format(new_cpf, date, organizer_cpf))
+        organizer_cpf = new_cpf
 
     if new_date is not None:
         query.exec_("UPDATE festa_tipo SET data = to_timestamp('{0}', 'YYYY-MM-DD')\
             WHERE data = to_timestamp('{1}', 'YYYY-MM-DD') AND organizador = '{2}'".format(new_date, date, organizer_cpf))
-        query.exec_("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')\
-            WHERE data = to_timestamp('{1}', 'YYYY-MM-DD') AND organizador = '{2}'".format(new_date, date, organizer_cpf))
-        print("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')\
-            WHERE data = to_timestamp('{1}', 'YYYY-MM-DD') AND organizador = {2}".format(new_date, date, organizer_cpf))
 
     return "Evento atualizado"
 

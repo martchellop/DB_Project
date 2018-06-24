@@ -13,6 +13,7 @@ CREATE TABLE festa_tipo (
 	CONSTRAINT pk_festa_tipo PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_organizador FOREIGN KEY (organizador)
 		REFERENCES organizador(CPF)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE universitaria (
@@ -22,6 +23,8 @@ CREATE TABLE universitaria (
 	CONSTRAINT pk_universitaria PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_universitaria_fes FOREIGN KEY (data, organizador)
 		REFERENCES festa_tipo(data, organizador)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE bilhete (
@@ -34,6 +37,8 @@ CREATE TABLE bilhete (
 	CONSTRAINT pk_bilhete PRIMARY KEY (data, organizador, id),
 	CONSTRAINT fk_bilhete FOREIGN KEY (data, organizador)
 		REFERENCES universitaria(data, organizador)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 CREATE TABLE casamento (
@@ -45,6 +50,7 @@ CREATE TABLE casamento (
 	CONSTRAINT pk_casamento PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_casamento_fes FOREIGN KEY (data, organizador)
 		REFERENCES festa_tipo(data, organizador)
+        ON DELETE CASCADE
 
 );
 
@@ -55,6 +61,8 @@ CREATE TABLE lista_casamento (
 	CONSTRAINT pk_lista_casamento PRIMARY KEY (data, organizador, nome),
 	CONSTRAINT fk_lista_casemento FOREIGN KEY (data, organizador)
 		REFERENCES casamento(data, organizador)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE cerimonialista (
@@ -73,6 +81,7 @@ CREATE TABLE casamento_cerimonialista (
 		REFERENCES casamento(data, organizador),
 	CONSTRAINT fk_casamento_cerimonialista_ceri FOREIGN KEY (cerimonialista)
 		REFERENCES cerimonialista(nome)
+        ON DELETE SET NULL
 );
 
 CREATE TABLE empresa_tipo (
@@ -87,7 +96,9 @@ CREATE TABLE locacao (
 	email varchar(50),
 	endereco varchar(150),
 	CONSTRAINT pk_locacao PRIMARY KEY (empresa),
-	CONSTRAINT fk_locacao FOREIGN KEY (empresa) REFERENCES empresa_tipo(CNPJ)
+	CONSTRAINT fk_locacao FOREIGN KEY (empresa)
+        REFERENCES empresa_tipo(CNPJ)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE decoracao (
@@ -96,7 +107,9 @@ CREATE TABLE decoracao (
 	email varchar(50),
 	endereco varchar(150),
 	CONSTRAINT pk_decoracao PRIMARY KEY (empresa),
-	CONSTRAINT fk_decoracao FOREIGN KEY (empresa) REFERENCES empresa_tipo(CNPJ)
+	CONSTRAINT fk_decoracao FOREIGN KEY (empresa)
+        REFERENCES empresa_tipo(CNPJ)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE floricultura (
@@ -107,6 +120,7 @@ CREATE TABLE floricultura (
 	CONSTRAINT pk_floricultura PRIMARY KEY (empresa),
 	CONSTRAINT fk_floricultura FOREIGN KEY (empresa)
 		REFERENCES empresa_tipo(CNPJ)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE transporte (
@@ -115,7 +129,9 @@ CREATE TABLE transporte (
 	email varchar(50),
 	endereco varchar(150),
 	CONSTRAINT pk_transporte PRIMARY KEY (empresa),
-	CONSTRAINT fk_transporte FOREIGN KEY (empresa) REFERENCES empresa_tipo(CNPJ)
+	CONSTRAINT fk_transporte FOREIGN KEY (empresa)
+        REFERENCES empresa_tipo(CNPJ)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE decor (
@@ -124,7 +140,9 @@ CREATE TABLE decor (
 	marca varchar(20) NOT NULL,
 	empresa char(14),
 	CONSTRAINT pk_decor PRIMARY KEY (tipo, cor, marca),
-	CONSTRAINT fk_decor FOREIGN KEY (empresa) REFERENCES decoracao(empresa)
+	CONSTRAINT fk_decor FOREIGN KEY (empresa)
+        REFERENCES decoracao(empresa)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE casamento_decoracao (
@@ -134,9 +152,11 @@ CREATE TABLE casamento_decoracao (
 	preco smallint NOT NULL,
 	CONSTRAINT pk_casamento_decoracao PRIMARY KEY (data, organizador, empresa),
 	CONSTRAINT fk_casamento_decoracao_casa FOREIGN KEY (data, organizador)
-		REFERENCES casamento(data, organizador),
+		REFERENCES casamento(data, organizador)
+        ON DELETE CASCADE,
 	CONSTRAINT fk_casamento_decoracao_deco FOREIGN KEY (empresa)
 		REFERENCES decoracao(empresa)
+        ON DELETE SET CASCADE
 );
 
 CREATE TABLE flor(
@@ -144,7 +164,9 @@ CREATE TABLE flor(
 	especie varchar(20) NOT NULL,
 	cor varchar(20) NOT NULL,
 	CONSTRAINT pk_flor PRIMARY KEY (empresa, especie, cor),
-	CONSTRAINT fk_flor FOREIGN KEY (empresa) REFERENCES floricultura(empresa)
+	CONSTRAINT fk_flor FOREIGN KEY (empresa)
+        REFERENCES floricultura(empresa)
+        ON DELETE SET NULL
 );
 
 CREATE TABLE casamento_floricultura (
@@ -155,9 +177,11 @@ CREATE TABLE casamento_floricultura (
 	CONSTRAINT pk_casamento_floricultura PRIMARY KEY
 		(data, organizador, empresa),
 	CONSTRAINT fk_casamento_floricultura_casa FOREIGN KEY (data, organizador)
-		REFERENCES casamento(data, organizador),
+		REFERENCES casamento(data, organizador)
+        ON DELETE CASCADE,
 	CONSTRAINT fk_casamento_floricultura_flor FOREIGN KEY (empresa)
 		REFERENCES floricultura(empresa)
+        ON DELETE SET NULL
 
 );
 
@@ -172,9 +196,11 @@ CREATE TABLE transporte_veiculo (
 	tipo varchar(20) NOT NULL,
 	CONSTRAINT pk_transporte_veiculo PRIMARY KEY (empresa, tipo),
 	CONSTRAINT fk_transporte_veiculo_trans FOREIGN KEY (empresa)
-		REFERENCES transporte(empresa),
+		REFERENCES transporte(empresa)
+        ON DELETE CASCADE,
 	CONSTRAINT fk_transporte_veiculo_mode FOREIGN KEY (tipo)
 		REFERENCES veiculo_tipo(modelo)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE aluga (
@@ -183,9 +209,11 @@ CREATE TABLE aluga (
 	empresa char(14) NOT NULL,
 	CONSTRAINT pk_aluga PRIMARY KEY (data, organizador, empresa),
 	CONSTRAINT fk_aluga_univ FOREIGN KEY (data, organizador)
-		REFERENCES universitaria(data, organizador),
+		REFERENCES universitaria(data, organizador)
+        ON DELETE SET NULL,
 	CONSTRAINT fk_aluga_trans FOREIGN KEY (empresa)
 		REFERENCES transporte(empresa)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE espaco (
@@ -195,7 +223,9 @@ CREATE TABLE espaco (
 	capacidade integer,
 	empresa char(14),
 	CONSTRAINT pk_espaco PRIMARY KEY (CEP),
-	CONSTRAINT fk_espaco FOREIGN KEY (empresa) REFERENCES locacao(empresa)
+	CONSTRAINT fk_espaco FOREIGN KEY (empresa)
+        REFERENCES locacao(empresa)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE casamento_espaco (
@@ -205,9 +235,11 @@ CREATE TABLE casamento_espaco (
 	preco smallint NOT NULL,
 	CONSTRAINT pk_casamento_espaco PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_casamento_espaco_casa FOREIGN KEY (data, organizador)
-		REFERENCES casamento(data, organizador),
+		REFERENCES casamento(data, organizador)
+        ON DELETE CASCADE,
 	CONSTRAINT fk_casamento_espaco_espa FOREIGN KEY (espaco)
 		REFERENCES espaco(CEP)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE universitaria_espaco (
@@ -217,7 +249,9 @@ CREATE TABLE universitaria_espaco (
 	preco smallint NOT NULL,
 	CONSTRAINT pk_universitaria_espaco PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_universitaria_espaco_casa FOREIGN KEY (data, organizador)
-		REFERENCES universitaria(data, organizador),
+		REFERENCES universitaria(data, organizador)
+        ON DELETE CASCADE,
 	CONSTRAINT fk_universitaria_espaco_espa FOREIGN KEY (espaco)
 		REFERENCES espaco(CEP)
+        ON DELETE CASCADE
 );
