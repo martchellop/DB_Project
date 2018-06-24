@@ -78,16 +78,16 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
     OBS: If no events match the query, return a empty model
     """
     # Queries
-    q_ambos = "SELECT "
-    q_casamento = "SELECT "
-    q_festa = "SELECT * FROM festa_tipo"
+    ambosQ = "SELECT "
+    casamentoQ = "SELECT "
+    festaQ = "SELECT * FROM festa_tipo"
 
     if event_type == "Ambos":
-        return select_database(q_ambos)
+        return select_database(ambosQ)
     elif event_type == "Casamento":
-        return select_database(q_casamento)
+        return select_database(casamentoQ)
     elif event_type == "Festa":
-        return select_database(q_festa)
+        return select_database(festaQ)
 
 
 def create_uni_event(date, organizer_cpf):
@@ -155,14 +155,17 @@ def localization_service(cep, create):
         If False, remove him
     """
 
+    db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    if create and query.exec_("") or not create and query.exec_("")
-        return "Serviço inserido"
-    elif not create
+    insertQ = ""
+    removeQ = ""
 
+    if (create and query.exec_(insertQ)) or
+        (not create and query.exec_(removeQ)):
+        return "Alterações aplicadas"
 
-    return "Falha ao inserir"
+    return "Falha ao alterar"
 
 
 def update_localization_service(cep, price):
@@ -180,7 +183,15 @@ def update_localization_service(cep, price):
             ex: 1000
             No floating points are accepeted
     """
-    return "Testing"
+    db = connect_database('db_project')
+    query = QtSql.QSqlQuery()
+
+    updateQ = ""
+
+    if query.exec_(updateQ):
+        return "Alterações aplicadas"
+
+    return "Falha ao alterar"
 
 
 def tickets_service(date, organizer_cpf, ticket_id=None):
@@ -199,11 +210,19 @@ def tickets_service(date, organizer_cpf, ticket_id=None):
         cep: str
             ex: "99999-999"
         ticket_id: int
-        create: bool
-    If create is True, create the ticket and associate it with the party
-        If False, remove the ticket from the party
     """
-    return "Testing"    # TODO: Remove
+
+    db = connect_database('db_project')
+    query = QtSql.QSqlQuery()
+
+    insertQ = ""
+    removeQ = ""
+
+    if (ticket_id == None and query.exec_(insertQ)) or
+        (ticket_id != None and query.exec_(removeQ)):
+        return "Alterações aplicadas"
+
+    return "Falha ao alterar"
 
 
 def reports(report_type):
