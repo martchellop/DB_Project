@@ -107,7 +107,22 @@ SELECT f.tipo, c.data, c.organizador, o.nome
 		AND c.organizador = '11111111111';
 
 
--- location_service
--- update_locatoion
--- update_locatoion_service
--- tickes_service
+-- localization_service
+
+-- insert
+INSERT INTO espaco (CEP) VALUES ('99999999');
+
+-- delete
+DELETE FROM espaco WHERE CEP = '99999999';
+
+-- update_localization_service
+
+
+
+-- tickets_service
+
+-- insert
+INSERT INTO bilhete (data, organizador) VALUES ('2017-05-21'::timestamp, '11111111111');
+
+-- delete
+DELETE FROM bilhete WHERE data = '2017-05-21'::timestamp and organizador = '11111111111' and id = 7;
