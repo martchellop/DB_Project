@@ -25,3 +25,4 @@ drop table if exists "casamento_espaco" cascade;
 drop table if exists "espaco" cascade;
 drop table if exists "universitaria_espaco" cascade;
 
+drop database if exists "db_project";

@@ -308,12 +308,12 @@ SELECT distinct et.tipo, t.empresa\
         return select_database(q_5)
 
 
-def exec_database(inputF):
+def exec_database(inputF, name):
     command = ""
     commands = []
     data = []
 
-    db = connect_database('db_project')
+    db = connect_database(name)
 
     # Read file
     with open(inputF, "r") as input_file:
@@ -351,6 +351,7 @@ def create_database(name):
     query.exec_('create database ' + name);
     return True
 
+
 def select_database(query):
     db = connect_database('db_project')
     model = QtSql.QSqlTableModel()
@@ -368,16 +369,16 @@ def select_database(query):
 
 
 if __name__ == "__main__":
+    print('Cleaning past executions...')
+    exec_database('clean.sql', 'postgres')
+
     print('Creating database...')
     create_database('db_project')
 
-    print('Cleaning past executions...')
-    exec_database('clean.sql')
-
     print('Creating database schema...')
-    exec_database('schema.sql')
+    exec_database('schema.sql', 'db_project')
 
     print('Populating database...')
-    exec_database('populate.sql')
+    exec_database('populate.sql', 'db_project')
 
 
