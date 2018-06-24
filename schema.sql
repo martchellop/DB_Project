@@ -47,6 +47,15 @@ CREATE TABLE casamento (
 		REFERENCES organizador(CPF)
 );
 
+CREATE TABLE lista_casamento (
+	data timestamp NOT NULL,
+	organizador char(11) NOT NULL,
+	nome varchar(50) NOT NULL,
+	CONSTRAINT pk_lista_casamento PRIMARY KEY (data, organizador, nome),
+	CONSTRAINT fk_lista_casemento FOREIGN KEY (data, organizador)
+		REFERENCES casamento(data, organizador)
+);
+
 CREATE TABLE cerimonialista (
 	nome varchar(50) NOT NULL,
 	telefone varchar(15),
