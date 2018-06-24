@@ -119,7 +119,7 @@ color: white</string>
     </item>
     <item>
      <property name="text">
-      <string>A média e o desvio padrão do custo de cada serviço</string>
+      <string>A média e o desvio padrão do custo dos espaços alugados</string>
      </property>
     </item>
     <item>

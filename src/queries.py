@@ -20,48 +20,6 @@ GENERAL DATA DEFINITIONS:
 
 from PyQt5 import QtSql, QtGui
 
-
-def temporary_test():
-    # TODO: Remove after everything is ready.
-    command = ""
-    commands = []
-    data = []
-
-    # Read file
-    with open("src/sample_table.sql", "r") as input_file:
-        data = [line.rstrip() for line in input_file]
-
-    # Join multiple lines in 1 comamnd
-    for line in data:
-        if ";" in line:
-            commands.append(command + line)
-            command = ""
-        else:
-            command += line
-
-    database = connect_database('db_project')
-
-    # For temporary executing the scripts
-    """
-    query = QtSql.QSqlQuery()
-    for line in commands:
-        query.exec_(line)
-    """
-
-    model = QtSql.QSqlTableModel()
-    model.setTable('organizador')
-    model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
-
-    model.select()
-    print(model.rowCount())
-
-    query = QtSql.QSqlQuery("SELECT * FROM organizador", database)
-    model.setQuery(query)
-    model.submitAll()
-
-    return model
-
-
 def search_events(event_type, date_start, date_end, organizer_cpf, organizer_name):
     """
     Searches all events for events that match the users options.
@@ -85,8 +43,8 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
                     "ON f.data = u.data AND f.organizador = u.organizador" \
                 "INNER JOIN organizador o" \
                     "ON o.cpf = f.organizador" \
-                "WHERE u.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
-                    "AND u.organizador = '11111111111';"
+                "WHERE u.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
+                    "AND u.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
 
     casamentoQ = "SELECT f.tipo, c.data, c.organizador, o.nome, c.conjuge1, c.conjuge2" \
                     "FROM casamento c" \
@@ -94,8 +52,8 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
                         "ON f.data = c.data AND f.organizador = c.organizador" \
                     "INNER JOIN organizador o" \
                         "ON o.cpf = f.organizador" \
-                    "WHERE c.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
-                        "AND c.organizador = '11111111111';"
+                    "WHERE c.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
+                        "AND c.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
 
     ambosQ = "SELECT f.tipo, u.data, u.organizador, o.nome" \
                 "FROM universitaria u" \
@@ -103,8 +61,8 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
                     "ON f.data = u.data AND f.organizador = u.organizador" \
                 "INNER JOIN organizador o" \
                     "ON o.cpf = f.organizador" \
-                "WHERE u.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
-                    "AND u.organizador = '11111111111'" \
+                "WHERE u.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
+                    "AND u.organizador = '{2}'" \
                 "UNION" \
                 "SELECT f.tipo, c.data, c.organizador, o.nome" \
                     "FROM casamento c" \
@@ -112,8 +70,9 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
                         "ON f.data = c.data AND f.organizador = c.organizador" \
                     "INNER JOIN organizador o" \
                         "ON o.cpf = f.organizador" \
-                    "WHERE c.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
-                        "AND c.organizador = '11111111111';"
+                    "WHERE c.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
+                        "AND c.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
+
 
 
     if event_type == "Ambos":
@@ -197,8 +156,8 @@ def localization_service(cep, create):
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    insertQ = "INSERT INTO espaco (CEP) VALUES ('99999999');"
-    removeQ = "DELETE FROM espaco WHERE CEP = '99999999';"
+    insertQ = "INSERT INTO espaco (CEP) VALUES ('{0}');".format(cep)
+    removeQ = "DELETE FROM espaco WHERE CEP = '{0}';".format(cep)
 
     if (create and query.exec_(insertQ)) or (not create and query.exec_(removeQ)):
         return "Alterações aplicadas"
@@ -224,7 +183,8 @@ def update_localization_service(cep, price):
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    updateQ = "UPDATE universitaria_espaco SET preco = 10 WHERE espaco = '78171828';"
+    updateQ = "UPDATE universitaria_espaco SET preco = {0} "\
+            "WHERE espaco = '{1}';".format(price, cep)
 
     if query.exec_(updateQ):
         return "Alterações aplicadas"
@@ -254,9 +214,9 @@ def tickets_service(date, organizer_cpf, ticket_id=None):
     query = QtSql.QSqlQuery()
 
     insertQ = "INSERT INTO bilhete (data, organizador) VALUES " \
-                "('2017-05-21'::timestamp, '11111111111');"
-    removeQ = "DELETE FROM bilhete WHERE data = '2017-05-21'::timestamp " \
-            "and organizador = '11111111111' and id = 7;"
+                "('{0}'::timestamp, '{1}');".format(date, organizer_cpf)
+    removeQ = "DELETE FROM bilhete WHERE data = '{0}'::timestamp " \
+            "and organizador = '{1}' and id = {2};".format(date, organizer_cpf, ticket_id)
 
     if (ticket_id == None and query.exec_(insertQ)) or (ticket_id != None and query.exec_(removeQ)):
         return "Alterações aplicadas"
@@ -309,30 +269,31 @@ def reports(report_type):
 	FROM bilhete\
 	WHERE preco > 10;"
 
-    q_4 = "SELECT data, organizador, count(nome) as quantidade\
-	FROM lista_casamento\
-	GROUP BY data, organizador;"
+    q_4 = "SELECT avg(quantidade) FROM\
+            (SELECT data, organizador, count(nome) as quantidade\
+               FROM lista_casamento\
+               GROUP BY data, organizador) as z;"
 
     q_5 = "SELECT distinct et.tipo, l.empresa\
-	FROM universitaria uni\
-	INNER JOIN universitaria_espaco ue\
-		ON ue.data = uni.data AND \
-                ue.organizador = uni.organizador\
-	INNER JOIN espaco esp\
-		ON ue.espaco = esp.cep\
-	INNER JOIN locacao l\
-		ON esp.empresa = l.empresa\
-	INNER JOIN empresa_tipo et\
-		ON l.empresa = et.CNPJ\
-UNION\
-SELECT distinct et.tipo, t.empresa\
-	FROM universitaria uni\
-	INNER JOIN aluga a\
-		ON uni.data = a.data and uni.organizador = a.organizador\
-	INNER JOIN transporte t\
-		ON a.empresa = t.empresa\
-	INNER JOIN empresa_tipo et\
-		ON t.empresa = et.CNPJ;"
+            FROM universitaria uni\
+            INNER JOIN universitaria_espaco ue\
+                    ON ue.data = uni.data AND \
+                    ue.organizador = uni.organizador\
+            INNER JOIN espaco esp\
+                    ON ue.espaco = esp.cep\
+            INNER JOIN locacao l\
+                    ON esp.empresa = l.empresa\
+            INNER JOIN empresa_tipo et\
+                    ON l.empresa = et.CNPJ\
+            UNION\
+            SELECT distinct et.tipo, t.empresa\
+            FROM universitaria uni\
+            INNER JOIN aluga a\
+                    ON uni.data = a.data and uni.organizador = a.organizador\
+            INNER JOIN transporte t\
+                    ON a.empresa = t.empresa\
+            INNER JOIN empresa_tipo et\
+                    ON t.empresa = et.CNPJ;"
 
 
     if(report_type == 0):
