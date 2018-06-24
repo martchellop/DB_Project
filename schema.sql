@@ -43,8 +43,9 @@ CREATE TABLE casamento (
 	conjuge1 varchar(50) NOT NULL,
 	conjuge2 varchar(50) NOT NULL,
 	CONSTRAINT pk_casamento PRIMARY KEY (data, organizador),
-	CONSTRAINT fk_casamento FOREIGN KEY (organizador)
-		REFERENCES organizador(CPF)
+	CONSTRAINT fk_casamento_fes FOREIGN KEY (data, organizador)
+		REFERENCES festa_tipo(data, organizador)
+
 );
 
 CREATE TABLE lista_casamento (

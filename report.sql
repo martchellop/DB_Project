@@ -57,3 +57,57 @@ SELECT distinct et.tipo, t.empresa
 		ON a.empresa = t.empresa
 	INNER JOIN empresa_tipo et
 		ON t.empresa = et.CNPJ;
+
+-- search_events
+-- Não entendi pra que serve o nome do organizador, checar com o Brunao depois
+-- mudar o WHERE para os parametros recebidos
+
+-- universitaria
+
+SELECT f.tipo, u.data, u.organizador, o.nome
+	FROM universitaria u
+	INNER JOIN festa_tipo f
+		ON f.data = u.data AND f.organizador = u.organizador
+	INNER JOIN organizador o
+		ON o.cpf = f.organizador
+	WHERE u.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp
+		AND u.organizador = '11111111111';
+
+-- casamento
+SELECT f.tipo, c.data, c.organizador, o.nome, c.conjuge1, c.conjuge2
+	FROM casamento c
+	INNER JOIN festa_tipo f
+		ON f.data = c.data AND f.organizador = c.organizador
+	INNER JOIN organizador o
+		ON o.cpf = f.organizador
+	WHERE c.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp
+		AND c.organizador = '11111111111';
+
+-- ambos
+-- e possivel fazer um where so, so que por razoes vistas em aula da AR, desse jeito eh mais rapido
+
+SELECT f.tipo, u.data, u.organizador, o.nome
+	FROM universitaria u
+	INNER JOIN festa_tipo f
+		ON f.data = u.data AND f.organizador = u.organizador
+	INNER JOIN organizador o
+		ON o.cpf = f.organizador
+	WHERE u.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp
+		AND u.organizador = '11111111111'
+
+UNION
+
+SELECT f.tipo, c.data, c.organizador, o.nome
+	FROM casamento c
+	INNER JOIN festa_tipo f
+		ON f.data = c.data AND f.organizador = c.organizador
+	INNER JOIN organizador o
+		ON o.cpf = f.organizador
+	WHERE c.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp
+		AND c.organizador = '11111111111';
+
+
+-- location_service
+-- update_locatoion
+-- update_locatoion_service
+-- tickes_service
