@@ -41,6 +41,11 @@ class updateScreen(QtWidgets.QMainWindow):
             utils.warning("Nada selecionado para ser atualizado!")
             return
 
+        if not self.ui.check_date.isChecked():
+            new_date = None
+        if not self.ui.check_cpf.isChecked():
+            new_date = None
+
         message = queries.update_uni_event(date, organizer_cpf, new_date, new_cpf)
         utils.warning(message)
 
