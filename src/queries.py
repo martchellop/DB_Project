@@ -161,8 +161,7 @@ def localization_service(cep, create):
     insertQ = ""
     removeQ = ""
 
-    if (create and query.exec_(insertQ)) or
-        (not create and query.exec_(removeQ)):
+    if (create and query.exec_(insertQ)) or (not create and query.exec_(removeQ)):
         return "Alterações aplicadas"
 
     return "Falha ao alterar"
@@ -218,8 +217,7 @@ def tickets_service(date, organizer_cpf, ticket_id=None):
     insertQ = ""
     removeQ = ""
 
-    if (ticket_id == None and query.exec_(insertQ)) or
-        (ticket_id != None and query.exec_(removeQ)):
+    if (ticket_id == None and query.exec_(insertQ)) or (ticket_id != None and query.exec_(removeQ)):
         return "Alterações aplicadas"
 
     return "Falha ao alterar"
