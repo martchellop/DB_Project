@@ -53,7 +53,7 @@ class updateTickets(QtWidgets.QMainWindow):
         ticket_id = self.ui.line_edit_id.text()
 
         # Deals with blank ticket number
-        if not ticket_id:
+        if not ticket_id and 'Adicionar' not in option:
             utils.warning("Número do ticket inválido!")
             return
 

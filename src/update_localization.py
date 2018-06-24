@@ -66,7 +66,11 @@ class updateLocalization(QtWidgets.QMainWindow):
         else:   # Update price
             date = self.ui.date_edit.date().toPyDate()
             organizer_cpf = self.ui.line_edit_cpf.text()
-            price = int(self.ui.line_edit_price.text())
+            price = self.ui.line_edit_price.text()
+            if not price:
+                utils.warning("Preço inválido")
+                return
+            price = int(price)
 
             # Deals with empty cpf or invalid amount of digits
             if organizer_cpf == "..." or len(organizer_cpf) != 14:
