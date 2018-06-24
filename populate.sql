@@ -24,9 +24,11 @@ INSERT INTO empresa_tipo VALUES ('11111111111111', 'transporte');
 INSERT INTO empresa_tipo VALUES ('22222222222222', 'transporte');
 INSERT INTO empresa_tipo VALUES ('33333333333333', 'transporte');
 INSERT INTO empresa_tipo VALUES ('44444444444444', 'locacao');
-INSERT INTO empresa_tipo VALUES ('77777777777777', 'locacao');
-INSERT INTO empresa_tipo VALUES ('55555555555555', 'decoracao');
+INSERT INTO empresa_tipo VALUES ('55555555555555', 'locacao');
 INSERT INTO empresa_tipo VALUES ('66666666666666', 'floricultura');
+INSERT INTO empresa_tipo VALUES ('77777777777777', 'floricultura');
+INSERT INTO empresa_tipo VALUES ('88888888888888', 'decoracao');
+INSERT INTO empresa_tipo VALUES ('99999999999999', 'decoracao');
 
 INSERT INTO locacao VALUES ('44444444444444', '11 998191', 'locmae@hotmail.com', 'rua sao carlos');
 INSERT INTO locacao VALUES ('77777777777777', '0800 5050 7171', 'comp@bol.com.br', 'avenida paulista');
@@ -132,68 +134,62 @@ INSERT INTO casamento_cerimonialista ( data, organizador, cerimonialista )
 
 
 INSERT INTO decoracao ( endereco, email, empresa, telefone )
-	VALUES ( 'Largo Vieira, 33 Conjunto Lagoa 57846-681 Monteiro do Galho / SC', 'testando@mailinator.com', 'Repellat enim decor.', '+55 31 1862 633' );
+	VALUES ( 'Largo Vieira, 33 Conjunto Lagoa 57846-681 Monteiro do Galho / SC', 'testando@mailinator.com', '88888888888888', '+55 31 1862 633' );
 
 INSERT INTO decoracao ( endereco, email, empresa, telefone )
-	VALUES ( 'Alameda Costa, 380 São Geraldo 02865-500 Dias dos Dourados / MT', 'umaEmpresa@example.com', 'Rem decor', '5546 9756' );
-
-INSERT INTO decoracao ( endereco, email, empresa, telefone )
-	VALUES ( 'Jardim de Nogueira, 706 Zilah Sposito 68142907 Duarte / PE', 'talvezResponda@mailinator.com', 'Maiores saepe', '81 5227 3613' );
+	VALUES ( 'Alameda Costa, 380 São Geraldo 02865-500 Dias dos Dourados / MT', 'umaEmpresa@example.com', '99999999999999', '5546 9756' );
 
 
 
 INSERT INTO floricultura ( endereco, email, empresa, telefone )
-	VALUES ( 'Colônia Maria Sophia Castro, 84 São Vicente 72734614 Freitas do Galho / MA', 'remoFlores@foo.com', 'Rem.', '31 4883-8376' );
+	VALUES ( 'Colônia Maria Sophia Castro, 84 São Vicente 72734614 Freitas do Galho / MA', 'remoFlores@foo.com', '66666666666666', '31 4883-8376' );
 
 INSERT INTO floricultura ( endereco, email, empresa, telefone )
-	VALUES ( 'Trevo Pietro Moreira, 480 Jardim Atlântico 31598-879 Pires / MA', 'repellatFloricultura@mailinator.com', 'Repellat enim flores', '+55 (041) 9981-' );
-
-INSERT INTO floricultura ( endereco, email, empresa, telefone )
-	VALUES ( 'Chácara Gonçalves, 75 Vila Madre Gertrudes 4ª Seção 56692-021 Costela do Norte / SC', 'foresMaiores@server.com', 'Maiores saepe flores', '+55 61 6474-052' );
+	VALUES ( 'Trevo Pietro Moreira, 480 Jardim Atlântico 31598-879 Pires / MA', 'repellatFloricultura@mailinator.com', '77777777777777', '+55 (041) 9981-' );
 
 
 
 INSERT INTO decor ( tipo, cor, empresa, marca )
-	VALUES ( 'Sequi modi cumque', 'Amarelo', 'Repellat enim decor.', 'Ut natus.' );
+	VALUES ( 'Sequi modi cumque', 'Amarelo', '88888888888888', 'Ut natus.' );
 INSERT INTO decor ( tipo, cor, empresa, marca )
-	VALUES ( 'Possimus', 'Vermelho', 'Maiores saepe', 'Natus.' );
+	VALUES ( 'Possimus', 'Vermelho', '88888888888888', 'Natus.' );
 INSERT INTO decor ( tipo, cor, empresa, marca )
-	VALUES ( 'Omnis est', 'Verde', 'Rem decor', 'Eius nostrum.' );
+	VALUES ( 'Omnis est', 'Verde', '99999999999999', 'Eius nostrum.' );
 
 
 
 INSERT INTO casamento_decoracao ( preco, data, empresa, organizador )
-	VALUES ( 6110, to_timestamp ('2008-09-22', 'YYYY-MM-DD'), 'Maiores saepe', '33333333333' );
+	VALUES ( 6110, to_timestamp ('2008-09-22', 'YYYY-MM-DD'), '99999999999999', '33333333333' );
 INSERT INTO casamento_decoracao ( preco, data, empresa, organizador )
-	VALUES ( 20435, to_timestamp ('2035-02-11', 'YYYY-MM-DD'), 'Rem decor', '22222222222' );
+	VALUES ( 20435, to_timestamp ('2035-02-11', 'YYYY-MM-DD'), '99999999999999', '11111111111' );
 INSERT INTO casamento_decoracao ( preco, data, empresa, organizador )
-	VALUES ( 8425, to_timestamp ('2038-01-13', 'YYYY-MM-DD'), 'Repellat enim decor.', '11111111111' );
+	VALUES ( 8425, to_timestamp ('2038-01-13', 'YYYY-MM-DD'), '88888888888888', '22222222222' );
 
 
 
 INSERT INTO flor ( especie, empresa, cor )
-	VALUES ( 'Tempora.', 'Maiores saepe', 'Violeta' );
+	VALUES ( 'Tempora.', '66666666666666', 'Violeta' );
 INSERT INTO flor ( especie, empresa, cor )
-	VALUES ( 'Sed', 'Rem decor', 'Aqua' );
+	VALUES ( 'Sed', '66666666666666', 'Aqua' );
 INSERT INTO flor ( especie, empresa, cor )
-	VALUES ( 'Nihil', 'Repellat enim decor.', 'Magenta' );
+	VALUES ( 'Nihil', '77777777777777', 'Magenta' );
 
 
 
 INSERT INTO casamento_floricultura ( preco, data, empresa, organizador )
-	VALUES ( 1836, to_timestamp ('2038-01-13', 'YYYY-MM-DD'), 'Maiores saepe.', '11111111111' );
+	VALUES ( 1836, to_timestamp ('2038-01-13', 'YYYY-MM-DD'), '77777777777777', '22222222222' );
 INSERT INTO casamento_floricultura ( preco, data, empresa, organizador )
-	VALUES ( 6283, to_timestamp ('2038-01-13', 'YYYY-MM-DD'), 'Repellat enim.', '11111111111' );
+	VALUES ( 6283, to_timestamp ('2035-02-11', 'YYYY-MM-DD'), '77777777777777', '11111111111' );
 INSERT INTO casamento_floricultura ( preco, data, empresa, organizador )
-	VALUES ( 27087, to_timestamp ('2008-09-22', 'YYYY-MM-DD'), 'Maiores saepe.', '33333333333' );
+	VALUES ( 27087, to_timestamp ('2008-09-22', 'YYYY-MM-DD'), '66666666666666', '33333333333' );
 
 
 
 INSERT INTO casamento_espaco ( espaco, data, organizador, preco )
 	VALUES ( '50505050', to_timestamp ('2008-09-22', 'YYYY-MM-DD'), '33333333333', 4392 );
 INSERT INTO casamento_espaco ( espaco, data, organizador, preco )
-	VALUES ( '50505050', to_timestamp ('2038-01-13', 'YYYY-MM-DD'), '11111111111', 8056 );
+	VALUES ( '50505050', to_timestamp ('2038-01-13', 'YYYY-MM-DD'), '22222222222', 8056 );
 INSERT INTO casamento_espaco ( espaco, data, organizador, preco )
-	VALUES ( '78171828', to_timestamp ('2035-02-11', 'YYYY-MM-DD'), '22222222222', 7472 );
+	VALUES ( '78171828', to_timestamp ('2035-02-11', 'YYYY-MM-DD'), '11111111111', 7472 );
 
 
