@@ -411,7 +411,7 @@ def select_database(query):
 
 if __name__ == "__main__":
     print('Cleaning past executions...')
-    exec_database('clean.sql', 'postgres')
+    exec_database('clean.sql', 'db_project')
 
     print('Creating database...')
     create_database('db_project')
