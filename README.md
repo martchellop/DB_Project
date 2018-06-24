@@ -5,9 +5,16 @@ Assignment report on overleaf [here](https://www.overleaf.com/16613395pjytnbwkjq
 
 # Installation:
 
-Python 3.6.1+ is required (otherwise doesn't work). For installing the necessary libs, just run:
+[Python3](https://www.python.org/) and [PostgreSQL](https://www.postgresql.org/) are required. For installing the necessary libs, just run:
 
-```pip3 install -r src/requirements.txt```
+`pip3 install -r src/requirements.txt`
+
+Create and poulate the database
+
+`python3 src/queries.py`
 
 # Running:
-```python3 src/search_event.py```
+
+Initialize the graphical interface with
+
+`python3 src/main.py`
