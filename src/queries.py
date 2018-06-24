@@ -386,13 +386,6 @@ def connect_database(name):
     return database
 
 
-def create_database(name):
-    p_db = connect_database('postgres')
-    query = QtSql.QSqlQuery()
-    query.exec_('create database ' + name);
-    return True
-
-
 def select_database(query):
     db = connect_database('db_project')
     model = QtSql.QSqlTableModel()
@@ -412,9 +405,6 @@ def select_database(query):
 if __name__ == "__main__":
     print('Cleaning past executions...')
     exec_database('clean.sql', 'db_project')
-
-    print('Creating database...')
-    create_database('db_project')
 
     print('Creating database schema...')
     exec_database('schema.sql', 'db_project')
