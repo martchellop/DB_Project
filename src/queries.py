@@ -126,18 +126,23 @@ def update_uni_event(date, organizer_cpf, new_date, new_cpf):
     """
 
     db = connect_database('db_project')
-
-    organizer_cpf = organizer_cpf.replace('.', '')
-    new_cpf = new_cpf.replace('.', '')
-
     query = QtSql.QSqlQuery()
 
-    if query.exec_("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')," \
-            "organizador = {1} WHERE data = to_timestamp('{2}', 'YYYY-MM-DD')" \
-            "AND organizador = {3}".format(new_date, new_cpf, date, organizer_cpf)):
-        return "Evento atualizado"
+    if organizer_cpf == None:
+        return "Forneça um CPF do organizador"
 
-    return "Falha ao atualizar"
+    organizer_cpf = organizer_cpf.replace('.', '')
+
+    if new_cpf != None:
+        new_cpf = new_cpf.replace('.', '')
+        query.exec_("UPDATE universitaria SET organizador = {0} "\
+                "WHERE organizador = {1}".format(new_cpf, organizer_cpf))
+
+    if new_date != None:
+        query.exec_("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')" \
+            " WHERE data = to_timestamp('{2}', 'YYYY-MM-DD')".format(new_date, date))
+
+    return "Evento atualizado"
 
 
 def localization_service(cep, create):
