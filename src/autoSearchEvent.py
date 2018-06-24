@@ -132,7 +132,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.line_edit_name)
         self.verticalLayout.addLayout(self.horizontalLayout_4)
         self.button_search_events = QtWidgets.QPushButton(self.centralWidget)
-        self.button_search_events.setGeometry(QtCore.QRect(210, 560, 131, 51))
+        self.button_search_events.setGeometry(QtCore.QRect(330, 560, 131, 51))
         self.button_search_events.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
         self.button_search_events.setObjectName("button_search_events")
@@ -142,7 +142,7 @@ class Ui_MainWindow(object):
 "color: white")
         self.table_search_results.setObjectName("table_search_results")
         self.button_menu = QtWidgets.QPushButton(self.centralWidget)
-        self.button_menu.setGeometry(QtCore.QRect(900, 760, 151, 51))
+        self.button_menu.setGeometry(QtCore.QRect(100, 560, 151, 51))
         self.button_menu.setStyleSheet("font: 14pt \"Cantarell\";\n"
 "color: white")
         self.button_menu.setObjectName("button_menu")

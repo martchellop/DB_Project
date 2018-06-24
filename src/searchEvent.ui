@@ -321,7 +321,7 @@ color: white</string>
    <widget class="QPushButton" name="button_search_events">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>330</x>
       <y>560</y>
       <width>131</width>
       <height>51</height>
@@ -352,8 +352,8 @@ color: white</string>
    <widget class="QPushButton" name="button_menu">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>760</y>
+      <x>100</x>
+      <y>560</y>
       <width>151</width>
       <height>51</height>
      </rect>
