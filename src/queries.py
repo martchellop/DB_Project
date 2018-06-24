@@ -39,7 +39,7 @@ def temporary_test():
         else:
             command += line
 
-    database = connect_database()
+    database = connect_database('db_project')
 
     # For temporary executing the scripts
     """
@@ -77,33 +77,17 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
         Type    Date    CPF     Nome
     OBS: If no events match the query, return a empty model
     """
-    database = connect_database()
-
-    model = QtSql.QSqlTableModel()
-    model.setTable("Eventos")
-    model.setEditStrategy(QSqlTableModel.OnManualSubmit)
-
-    model.select()
-
     # Queries
     q_ambos = "SELECT "
     q_casamento = "SELECT "
-    q_festa = "SELECT "
+    q_festa = "SELECT * FROM festa_tipo"
 
     if event_type == "Ambos":
-        query = QtSql.QSqlQuery(q_ambos, database)
+        return select_database(q_ambos)
     elif event_type == "Casamento":
-        query = QtSql.QSqlQuery(q_casamento)
+        return select_database(q_casamento)
     elif event_type == "Festa":
-        query = QtSql.QSqlQuery(q_festa, database)
-    else:
-        query - QtSql.QSqlQuery()
-
-
-    model.setQuery(query)
-    model.submitAll()
-
-    return model
+        return select_database(q_festa)
 
 
 def create_uni_event(date, organizer_cpf):
@@ -116,21 +100,20 @@ def create_uni_event(date, organizer_cpf):
 
     """
 
-    database = connect_database()
+    db = connect_database('db_project')
 
     organizer_cpf = organizer_cpf.replace('.', '')
 
     query = QtSql.QSqlQuery()
 
     query.exec_("INSERT INTO festa_tipo VALUES (to_timestamp('{0}', " \
-    "'YYYY-MM-DD'), {1}, 'universitaria')".format(date, organizer_cpf))
+            "'YYYY-MM-DD'), {1}, 'universitaria')".format(date, organizer_cpf))
 
-    if query.exec_("INSERT INTO universitaria VALUES " \
-        "(to_timestamp('{0}', 'YYYY-MM-DD'), {1}), {2}".format(date, organizer_cpf, None)):
-        database.close()
-        return "Evento inserido"
+    if not query.exec_("INSERT INTO universitaria VALUES " \
+        "(to_timestamp('{0}', 'YYYY-MM-DD'), {1}, NULL)".format(date, organizer_cpf)):
+        return "Falha ao inserir"
 
-    return "Falha ao inserir"
+    return "Evento inserido"
 
 
 def update_uni_event(date, organizer_cpf, new_date, new_cpf):
@@ -142,7 +125,7 @@ def update_uni_event(date, organizer_cpf, new_date, new_cpf):
     The message should contain sucess or error information.
     """
 
-    database = connect_database()
+    db = connect_database('db_project')
 
     organizer_cpf = organizer_cpf.replace('.', '')
     new_cpf = new_cpf.replace('.', '')
@@ -172,12 +155,14 @@ def localization_service(cep, create):
         If False, remove him
     """
 
-#    query = QtSql.QSqlQuery()
+    query = QtSql.QSqlQuery()
 
-#    if create and query.exec_("")
+    if create and query.exec_("") or not create and query.exec_("")
+        return "Serviço inserido"
+    elif not create
 
 
-    return "Testing"    # TODO: Remove
+    return "Falha ao inserir"
 
 
 def update_localization_service(cep, price):
@@ -241,72 +226,140 @@ def reports(report_type):
 
     OBS: If no events match the query, return a empty model
     """
-    return temporary_test()     # TODO: Remove
+
+    q_0 = "SELECT uni.*\
+	FROM universitaria uni\
+	INNER JOIN universitaria_espaco ue\
+		ON ue.data = uni.data AND\
+                ue.organizador = uni.organizador\
+	INNER JOIN espaco esp\
+		ON ue.espaco = esp.cep\
+	WHERE esp.categoria = 'chacara';"
+
+    q_1 = "select tipo, avg(preco) as media from  \
+    ((select u.*, ft.tipo from universitaria u inner \
+    join festa_tipo ft on u.data = ft.data and \
+    u.organizador = ft.organizador) union \
+    (select c.data, c.organizador, c.preco, ft.tipo from casamento c \
+    inner join festa_tipo ft on c.data = ft.data and \
+    c.organizador = ft.organizador)) as z group by tipo;"
+
+    q_2 = "SELECT avg(preco) as media, stddev_samp(preco) as std\
+	FROM universitaria_espaco;"
+
+    q_3 = "SELECT avg(preco) as media\
+	FROM bilhete\
+	WHERE preco > 10;"
+
+    q_4 = "SELECT data, organizador, count(nome) as quantidade\
+	FROM lista_casamento\
+	GROUP BY data, organizador;"
+
+    q_5 = "SELECT distinct et.tipo, l.empresa\
+	FROM universitaria uni\
+	INNER JOIN universitaria_espaco ue\
+		ON ue.data = uni.data AND \
+                ue.organizador = uni.organizador\
+	INNER JOIN espaco esp\
+		ON ue.espaco = esp.cep\
+	INNER JOIN locacao l\
+		ON esp.empresa = l.empresa\
+	INNER JOIN empresa_tipo et\
+		ON l.empresa = et.CNPJ\
+UNION\
+SELECT distinct et.tipo, t.empresa\
+	FROM universitaria uni\
+	INNER JOIN aluga a\
+		ON uni.data = a.data and uni.organizador = a.organizador\
+	INNER JOIN transporte t\
+		ON a.empresa = t.empresa\
+	INNER JOIN empresa_tipo et\
+		ON t.empresa = et.CNPJ;"
 
 
-def create_table():
+    if(report_type == 0):
+        return select_database(q_0)
+    elif(report_type == 1):
+        return select_database(q_1)
+    elif(report_type == 2):
+        return select_database(q_2)
+    elif(report_type == 3):
+        return select_database(q_3)
+    elif(report_type == 4):
+        return select_database(q_4)
+    elif(report_type == 5):
+        return select_database(q_5)
+
+
+def exec_database(inputF):
     command = ""
     commands = []
     data = []
 
-    print('Creating database schema...')
+    db = connect_database('db_project')
 
     # Read file
-    with open("schema.sql", "r") as input_file:
+    with open(inputF, "r") as input_file:
         data = [line.rstrip() for line in input_file]
 
     # Join multiple lines in 1 comamnd
     for line in data:
         if ";" in line:
-            command = ""
             commands.append(command + line)
+            command = ""
         else:
-            commands += line
+            command += line
 
     query = QtSql.QSqlQuery()
     for line in commands:
-        query.exec_(line)
+        print(line)
+        print(query.exec_(line))
 
 
-def populate_table():
-    command = ""
-    commands = []
-    data = []
-
-    print('Populating database...')
-
-    # Read file
-    with open("populate.sql", "r") as input_file:
-        data = [line.rstrip() for line in input_file]
-
-    # Join multiple lines in 1 comamnd
-    for line in data:
-        if ";" in line:
-            command = ""
-            commands.append(command + line)
-        else:
-            commands += line
-
-    query = QtSql.QSqlQuery()
-    for line in commands:
-        query.exec_(line)
-
-
-def connect_database():
+def connect_database(name):
     database = QtSql.QSqlDatabase.addDatabase('QPSQL')
-    database.setDatabaseName('src/events.db')
-    database.setUserName('user')
-    database.setPort(5432)
+    database.setDatabaseName(name)
+
     if not database.open():
         print('Unable to open database connection')
         print(database.lastError().text())
 
+    return database
+
+
+def create_database(name):
+    p_db = connect_database('postgres')
+    query = QtSql.QSqlQuery()
+    query.exec_('create database ' + name);
+    return True
+
+def select_database(query):
+    db = connect_database('db_project')
+    model = QtSql.QSqlTableModel()
+    model.setEditStrategy(QtSql.QSqlTableModel.OnManualSubmit)
+
+    model.select()
+
+    q = QtSql.QSqlQuery(query, db)
+
+    model.setQuery(q)
+    model.submitAll()
+
+    return model
+
 
 
 if __name__ == "__main__":
+    print('Creating database...')
+    create_database('db_project')
 
-    connect_database()
-    create_table()
-    populate_table()
+    print('Cleaning past executions...')
+    exec_database('clean.sql')
+
+    print('Creating database schema...')
+    exec_database('schema.sql')
+
+    print('Populating database...')
+    exec_database('populate.sql')
 
 
