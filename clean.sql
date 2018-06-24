@@ -5,6 +5,7 @@ drop table if exists "casamento_cerimonialista" cascade;
 drop table if exists "festa_tipo" cascade;
 drop table if exists "decor" cascade;
 drop table if exists "casamento" cascade;
+drop table if exists "lista_casamento" cascade;
 drop table if exists "bilhete" cascade;
 drop table if exists "organizador" cascade;
 drop table if exists "universitaria" cascade;

@@ -331,6 +331,7 @@ def exec_database(inputF):
     for line in commands:
         print(line)
         print(query.exec_(line))
+        print(query.lastError().text())
 
 
 def connect_database(name):
