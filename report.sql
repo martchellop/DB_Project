@@ -116,8 +116,9 @@ INSERT INTO espaco (CEP) VALUES ('99999999');
 DELETE FROM espaco WHERE CEP = '99999999';
 
 -- update_localization_service
+-- estou supondo que seja alterar ir na tabela universitaria_espaco e alterar o preco de todas as festas que tenham aquele CEP
 
-
+UPDATE universitaria_espaco SET preco = 10 WHERE espaco = '78171828';
 
 -- tickets_service
 
