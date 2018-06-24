@@ -41,6 +41,9 @@ class searchScreen(QtWidgets.QMainWindow):
             return
 
         organizer_name = self.ui.line_edit_name.text()
+        if not organizer_name:
+            organizer_name = None
+
         model = queries.search_events(event_type, date_start, date_end,
                                       organizer_cpf, organizer_name)
         if model:
