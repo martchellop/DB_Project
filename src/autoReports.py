@@ -77,7 +77,7 @@ class Ui_MainWindow(object):
         self.button_menu.setText(_translate("MainWindow", "Voltar ao menu"))
         self.choose_report.setItemText(0, _translate("MainWindow", "As festas que contrataram uma chácara"))
         self.choose_report.setItemText(1, _translate("MainWindow", "O custo médio das festas agrupado por tipo"))
-        self.choose_report.setItemText(2, _translate("MainWindow", "A média e o desvio padrão do custo de cada serviço"))
+        self.choose_report.setItemText(2, _translate("MainWindow", "A média e o desvio padrão do custo dos espaços alugados"))
         self.choose_report.setItemText(3, _translate("MainWindow", "A média do preço dos bilhetes que custam mais de 10"))
         self.choose_report.setItemText(4, _translate("MainWindow", "A média da quantidade de convidados de uma festa de casamento"))
         self.choose_report.setItemText(5, _translate("MainWindow", "As empresas que fornecem algum tipo de serviço para festa universitária"))

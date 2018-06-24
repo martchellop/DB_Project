@@ -36,44 +36,44 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
     OBS: If no events match the query, return a empty model
     """
 
+    organizer_cpf = organizer_cpf.replace('.', '')
+
     # Queries
-    festaQ = "SELECT f.tipo, u.data, u.organizador, o.nome" \
-                "FROM universitaria u" \
-                "INNER JOIN festa_tipo f" \
-                    "ON f.data = u.data AND f.organizador = u.organizador" \
-                "INNER JOIN organizador o" \
-                    "ON o.cpf = f.organizador" \
-                "WHERE u.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
-                    "AND u.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
+    festaQ = "SELECT f.tipo, u.data, u.organizador, o.nome\
+                FROM universitaria u\
+                INNER JOIN festa_tipo f\
+                    ON f.data = u.data AND f.organizador = u.organizador\
+                INNER JOIN organizador o\
+                    ON o.cpf = f.organizador\
+                WHERE u.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp\
+                    AND u.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
 
-    casamentoQ = "SELECT f.tipo, c.data, c.organizador, o.nome, c.conjuge1, c.conjuge2" \
-                    "FROM casamento c" \
-                    "INNER JOIN festa_tipo f" \
-                        "ON f.data = c.data AND f.organizador = c.organizador" \
-                    "INNER JOIN organizador o" \
-                        "ON o.cpf = f.organizador" \
-                    "WHERE c.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
-                        "AND c.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
+    casamentoQ = "SELECT f.tipo, c.data, c.organizador, o.nome, c.conjuge1, c.conjuge2\
+                    FROM casamento c\
+                    INNER JOIN festa_tipo f\
+                        ON f.data = c.data AND f.organizador = c.organizador\
+                    INNER JOIN organizador o\
+                        ON o.cpf = f.organizador\
+                    WHERE c.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp\
+                        AND c.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
 
-    ambosQ = "SELECT f.tipo, u.data, u.organizador, o.nome" \
-                "FROM universitaria u" \
-                "INNER JOIN festa_tipo f" \
-                    "ON f.data = u.data AND f.organizador = u.organizador" \
-                "INNER JOIN organizador o" \
-                    "ON o.cpf = f.organizador" \
-                "WHERE u.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
-                    "AND u.organizador = '{2}'" \
-                "UNION" \
-                "SELECT f.tipo, c.data, c.organizador, o.nome" \
-                    "FROM casamento c" \
-                    "INNER JOIN festa_tipo f" \
-                        "ON f.data = c.data AND f.organizador = c.organizador" \
-                    "INNER JOIN organizador o" \
-                        "ON o.cpf = f.organizador" \
-                    "WHERE c.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp" \
-                        "AND c.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
-
-
+    ambosQ = "SELECT f.tipo, u.data, u.organizador, o.nome\
+                FROM universitaria u\
+                INNER JOIN festa_tipo f\
+                    ON f.data = u.data AND f.organizador = u.organizador\
+                INNER JOIN organizador o\
+                    ON o.cpf = f.organizador\
+                WHERE u.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp\
+                    AND u.organizador = '{2}'\
+                UNION\
+                SELECT f.tipo, c.data, c.organizador, o.nome\
+                    FROM casamento c\
+                    INNER JOIN festa_tipo f\
+                        ON f.data = c.data AND f.organizador = c.organizador\
+                    INNER JOIN organizador o\
+                        ON o.cpf = f.organizador\
+                    WHERE c.data BETWEEN '{0}'::timestamp AND '{1}'::timestamp\
+                        AND c.organizador = '{2}';".format(date_start, date_end, organizer_cpf)
 
     if event_type == "Ambos":
         return select_database(ambosQ)
@@ -121,19 +121,25 @@ def update_uni_event(date, organizer_cpf, new_date, new_cpf):
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    if organizer_cpf == None:
+    if organizer_cpf is None:
         return "Forneça um CPF do organizador"
 
     organizer_cpf = organizer_cpf.replace('.', '')
 
-    if new_cpf != None:
+    if new_cpf is not None:
         new_cpf = new_cpf.replace('.', '')
-        query.exec_("UPDATE universitaria SET organizador = {0} "\
-                "WHERE organizador = {1}".format(new_cpf, organizer_cpf))
+        query.exec_("UPDATE festa_tipo SET organizador = '{0}'\
+                WHERE organizador = {1}".format(new_cpf, organizer_cpf))
+        query.exec_("UPDATE universitaria SET organizador = '{0}'\
+                WHERE organizador = '{1}'".format(new_cpf, organizer_cpf))
 
-    if new_date != None:
-        query.exec_("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')" \
-            " WHERE data = to_timestamp('{2}', 'YYYY-MM-DD')".format(new_date, date))
+    if new_date is not None:
+        query.exec_("UPDATE festa_tipo SET data = to_timestamp('{0}', 'YYYY-MM-DD')\
+            WHERE data = to_timestamp('{1}', 'YYYY-MM-DD') AND organizador = '{2}'".format(new_date, date, organizer_cpf))
+        query.exec_("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')\
+            WHERE data = to_timestamp('{1}', 'YYYY-MM-DD') AND organizador = '{2}'".format(new_date, date, organizer_cpf))
+        print("UPDATE universitaria SET data = to_timestamp('{0}', 'YYYY-MM-DD')\
+            WHERE data = to_timestamp('{1}', 'YYYY-MM-DD') AND organizador = {2}".format(new_date, date, organizer_cpf))
 
     return "Evento atualizado"
 
@@ -210,13 +216,14 @@ def tickets_service(date, organizer_cpf, ticket_id=None):
         ticket_id: int
     """
 
+    organizer_cpf = organizer_cpf.replace('.', '')
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    insertQ = "INSERT INTO bilhete (data, organizador) VALUES " \
-                "('{0}'::timestamp, '{1}');".format(date, organizer_cpf)
-    removeQ = "DELETE FROM bilhete WHERE data = '{0}'::timestamp " \
-            "and organizador = '{1}' and id = {2};".format(date, organizer_cpf, ticket_id)
+    insertQ = "INSERT INTO bilhete (data, organizador) VALUES\
+                ('{0}'::timestamp, '{1}');".format(date, organizer_cpf)
+    removeQ = "DELETE FROM bilhete WHERE data = '{0}'::timestamp\
+            and organizador = '{1}' and id = {2};".format(date, organizer_cpf, ticket_id)
 
     if (ticket_id == None and query.exec_(insertQ)) or (ticket_id != None and query.exec_(removeQ)):
         return "Alterações aplicadas"
