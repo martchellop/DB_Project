@@ -18,6 +18,7 @@ CREATE TABLE festa_tipo (
 CREATE TABLE universitaria (
 	data timestamp NOT NULL,
 	organizador char(11) NOT NULL,
+	preco int,
 	CONSTRAINT pk_universitaria PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_universitaria_fes FOREIGN KEY (data, organizador)
 		REFERENCES festa_tipo(data, organizador)
@@ -44,6 +45,15 @@ CREATE TABLE casamento (
 	CONSTRAINT pk_casamento PRIMARY KEY (data, organizador),
 	CONSTRAINT fk_casamento FOREIGN KEY (organizador)
 		REFERENCES organizador(CPF)
+);
+
+CREATE TABLE lista_casamento (
+	data timestamp NOT NULL,
+	organizador char(11) NOT NULL,
+	nome varchar(50) NOT NULL,
+	CONSTRAINT pk_lista_casamento PRIMARY KEY (data, organizador, nome),
+	CONSTRAINT fk_lista_casemento FOREIGN KEY (data, organizador)
+		REFERENCES casamento(data, organizador)
 );
 
 CREATE TABLE cerimonialista (
@@ -161,7 +171,9 @@ CREATE TABLE transporte_veiculo (
 	tipo varchar(20) NOT NULL,
 	CONSTRAINT pk_transporte_veiculo PRIMARY KEY (empresa, tipo),
 	CONSTRAINT fk_transporte_veiculo_trans FOREIGN KEY (empresa)
-		REFERENCES transporte(empresa)
+		REFERENCES transporte(empresa),
+	CONSTRAINT fk_transporte_veiculo_mode FOREIGN KEY (tipo)
+		REFERENCES veiculo_tipo(modelo)
 );
 
 CREATE TABLE aluga (
