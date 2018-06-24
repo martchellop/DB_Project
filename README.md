@@ -9,7 +9,11 @@ Assignment report on overleaf [here](https://www.overleaf.com/16613395pjytnbwkjq
 
 `pip3 install -r src/requirements.txt`
 
-Create and poulate the database
+Create the database named `db_project` on postgres
+
+`psql -u postgres createdb db_project`
+
+Populate the database
 
 `python3 src/queries.py`
 
