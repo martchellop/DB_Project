@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p>NomeDaEmpresa</p></body></html>"))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p>Eventos</p></body></html>"))
         self.button_uni_create.setText(_translate("MainWindow", "Cadastro de festa universitária"))
         self.button_uni_update.setText(_translate("MainWindow", "Atualização de festa universitária"))
         self.button_uni_services.setText(_translate("MainWindow", "Serviços das festas universitárias"))
