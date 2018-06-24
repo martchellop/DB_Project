@@ -7,6 +7,9 @@ INSERT INTO festa_tipo VALUES (to_timestamp('2017-05-21', 'YYYY-MM-DD'), '111111
 INSERT INTO festa_tipo VALUES (to_timestamp('2018-09-12', 'YYYY-MM-DD'), '11111111111', 'universitaria');
 INSERT INTO festa_tipo VALUES (to_timestamp('2017-04-11', 'YYYY-MM-DD'), '22222222222', 'universitaria');
 INSERT INTO festa_tipo VALUES (to_timestamp('2013-11-05', 'YYYY-MM-DD'), '55555555555', 'universitaria');
+INSERT INTO festa_tipo VALUES (to_timestamp('2035-02-11', 'YYYY-MM-DD'), '11111111111', 'casamento');
+INSERT INTO festa_tipo VALUES (to_timestamp('2038-01-13', 'YYYY-MM-DD'), '22222222222', 'casamento');
+INSERT INTO festa_tipo VALUES (to_timestamp('2008-09-22', 'YYYY-MM-DD'), '33333333333', 'casamento');
 
 INSERT INTO universitaria VALUES (to_timestamp('2017-05-21', 'YYYY-MM-DD'), '11111111111', 50000);
 INSERT INTO universitaria VALUES (to_timestamp('2018-09-12', 'YYYY-MM-DD'), '11111111111', 20000);
