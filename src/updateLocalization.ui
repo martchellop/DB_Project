@@ -169,7 +169,7 @@ color: white</string>
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>670</y>
+      <y>540</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -186,7 +186,7 @@ color: white</string>
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>670</y>
+      <y>540</y>
       <width>161</width>
       <height>51</height>
      </rect>
@@ -258,7 +258,7 @@ color: white</string>
      <rect>
       <x>50</x>
       <y>130</y>
-      <width>312</width>
+      <width>363</width>
       <height>80</height>
      </rect>
     </property>
@@ -342,7 +342,7 @@ color: white</string>
      <rect>
       <x>360</x>
       <y>130</y>
-      <width>214</width>
+      <width>251</width>
       <height>81</height>
      </rect>
     </property>
@@ -396,7 +396,7 @@ color: white</string>
      <x>0</x>
      <y>0</y>
      <width>645</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
