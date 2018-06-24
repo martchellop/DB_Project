@@ -41,11 +41,16 @@ class updateScreen(QtWidgets.QMainWindow):
             utils.warning("Nada selecionado para ser atualizado!")
             return
 
-        if not self.ui.check_date.isChecked():
-            new_date = None
-        if not self.ui.check_cpf.isChecked():
-            new_date = None
-
+        if self.ui.check_date.isChecked():
+            new_date = self.ui.date_update.date().toPyDate()
+        if self.ui.check_cpf.isChecked():
+            # Deals with empty cpf or invalid amount of digits
+            if organizer_cpf == "..." or len(organizer_cpf) != 14:
+                utils.warning("CPF inválido!")
+                return
+            else:
+                new_cpf = self.ui.line_edit_update_cpf.text()
+        print(new_date, new_cpf)
         message = queries.update_uni_event(date, organizer_cpf, new_date, new_cpf)
         utils.warning(message)
 
