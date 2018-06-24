@@ -156,7 +156,7 @@ CREATE TABLE casamento_decoracao (
         ON DELETE CASCADE,
 	CONSTRAINT fk_casamento_decoracao_deco FOREIGN KEY (empresa)
 		REFERENCES decoracao(empresa)
-        ON DELETE SET CASCADE
+        ON DELETE CASCADE
 );
 
 CREATE TABLE flor(

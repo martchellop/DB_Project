@@ -49,9 +49,16 @@ INSERT INTO aluga VALUES (to_timestamp('2017-04-11', 'YYYY-MM-DD'), '22222222222
 INSERT INTO aluga VALUES (to_timestamp('2018-09-12', 'YYYY-MM-DD'), '11111111111', '22222222222222');
 
 INSERT INTO espaco VALUES ('50505050', 'republica', 'endereco', 70, '44444444444444');
-INSERT INTO espaco VALUES ('78171828', 'campo', 'outro endereco', 500, '44444444444444');
+INSERT INTO espaco VALUES ('78171828', 'igreja', 'endereco', 70, '44444444444444');
+INSERT INTO espaco VALUES ('18171828', 'chacara', 'outro endereco', 1230, '44444444444444');
+INSERT INTO espaco VALUES ('28171828', 'chacara', 'um novo endereco', 107, '44444444444444');
+INSERT INTO espaco VALUES ('38171822', 'campo', 'mais um endereco', 5123, '44444444444444');
+INSERT INTO espaco VALUES ('48171821', 'chacara', 'novamente, endereco', 800, '44444444444444');
+INSERT INTO espaco VALUES ('58173828', 'estadio', 'endereco endereco', 1000, '44444444444444');
+INSERT INTO espaco VALUES ('78171928', 'bar', 'enderecozao', 200, '44444444444444');
 
-INSERT INTO universitaria_espaco VALUES (to_timestamp('2017-05-21', 'YYYY-MM-DD'), '11111111111', '78171828', 200);
+INSERT INTO universitaria_espaco VALUES (to_timestamp('2017-05-21', 'YYYY-MM-DD'), '11111111111', '48171821', 200);
+INSERT INTO universitaria_espaco VALUES (to_timestamp('2017-06-21', 'YYYY-MM-DD'), '22222222222', '18171828', 200);
 INSERT INTO universitaria_espaco VALUES (to_timestamp('2013-11-05', 'YYYY-MM-DD'), '55555555555', '50505050', 200);
 
 

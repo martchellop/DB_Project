@@ -181,11 +181,12 @@ def update_localization_service(cep, price):
             ex: 1000
             No floating points are accepeted
     """
+
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    updateQ = "UPDATE universitaria_espaco SET preco = {0} "\
-            "WHERE espaco = '{1}';".format(price, cep)
+    updateQ = "UPDATE universitaria_espaco SET preco = {0}\
+            WHERE espaco = '{1}';".format(price, cep)
 
     if query.exec_(updateQ):
         return "Alterações aplicadas"
