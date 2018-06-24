@@ -77,10 +77,44 @@ def search_events(event_type, date_start, date_end, organizer_cpf, organizer_nam
         Type    Date    CPF     Nome
     OBS: If no events match the query, return a empty model
     """
+
     # Queries
-    ambosQ = "SELECT "
-    casamentoQ = "SELECT "
-    festaQ = "SELECT * FROM festa_tipo"
+    festaQ = "SELECT f.tipo, u.data, u.organizador, o.nome" \
+                "FROM universitaria u" \
+                "INNER JOIN festa_tipo f" \
+                    "ON f.data = u.data AND f.organizador = u.organizador" \
+                "INNER JOIN organizador o" \
+                    "ON o.cpf = f.organizador" \
+                "WHERE u.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
+                    "AND u.organizador = '11111111111';"
+
+    casamentoQ = "SELECT f.tipo, c.data, c.organizador, o.nome, c.conjuge1, c.conjuge2" \
+                    "FROM casamento c" \
+                    "INNER JOIN festa_tipo f" \
+                        "ON f.data = c.data AND f.organizador = c.organizador" \
+                    "INNER JOIN organizador o" \
+                        "ON o.cpf = f.organizador" \
+                    "WHERE c.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
+                        "AND c.organizador = '11111111111';"
+
+    ambosQ = "SELECT f.tipo, u.data, u.organizador, o.nome" \
+                "FROM universitaria u" \
+                "INNER JOIN festa_tipo f" \
+                    "ON f.data = u.data AND f.organizador = u.organizador" \
+                "INNER JOIN organizador o" \
+                    "ON o.cpf = f.organizador" \
+                "WHERE u.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
+                    "AND u.organizador = '11111111111'" \
+                "UNION" \
+                "SELECT f.tipo, c.data, c.organizador, o.nome" \
+                    "FROM casamento c" \
+                    "INNER JOIN festa_tipo f" \
+                        "ON f.data = c.data AND f.organizador = c.organizador" \
+                    "INNER JOIN organizador o" \
+                        "ON o.cpf = f.organizador" \
+                    "WHERE c.data BETWEEN '2015-06-23'::timestamp AND now()::timestamp" \
+                        "AND c.organizador = '11111111111';"
+
 
     if event_type == "Ambos":
         return select_database(ambosQ)
@@ -163,8 +197,8 @@ def localization_service(cep, create):
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    insertQ = ""
-    removeQ = ""
+    insertQ = "INSERT INTO espaco (CEP) VALUES ('99999999');"
+    removeQ = "DELETE FROM espaco WHERE CEP = '99999999';"
 
     if (create and query.exec_(insertQ)) or (not create and query.exec_(removeQ)):
         return "Alterações aplicadas"
@@ -190,7 +224,7 @@ def update_localization_service(cep, price):
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    updateQ = ""
+    updateQ = "UPDATE universitaria_espaco SET preco = 10 WHERE espaco = '78171828';"
 
     if query.exec_(updateQ):
         return "Alterações aplicadas"
@@ -219,8 +253,10 @@ def tickets_service(date, organizer_cpf, ticket_id=None):
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
-    insertQ = ""
-    removeQ = ""
+    insertQ = "INSERT INTO bilhete (data, organizador) VALUES " \
+                "('2017-05-21'::timestamp, '11111111111');"
+    removeQ = "DELETE FROM bilhete WHERE data = '2017-05-21'::timestamp " \
+            "and organizador = '11111111111' and id = 7;"
 
     if (ticket_id == None and query.exec_(insertQ)) or (ticket_id != None and query.exec_(removeQ)):
         return "Alterações aplicadas"
