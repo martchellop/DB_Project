@@ -52,17 +52,20 @@ class updateLocalization(QtWidgets.QMainWindow):
 
     def handle_update_event(self):
         option = self.ui.choose_type.currentText()
-        cep = self.ui.line_edit_cpf.text()
+        cep = self.ui.line_edit_cep.text()
 
         # Deals with empty cpf or invalid amount of digits
         if cep == "-" or len(cep) != 9:
+            print(cep, len(cep))
             utils.warning("cep inválido!")
             return
 
         if 'Adicionar' in option:
+            print("here")
             message = queries.localization_service(cep, create=True)
         elif 'Remover' in option:
             message = queries.localization_service(cep, create=False)
+
         else:   # Update price
             date = self.ui.date_edit.date().toPyDate()
             organizer_cpf = self.ui.line_edit_cpf.text()
