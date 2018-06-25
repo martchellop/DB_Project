@@ -157,10 +157,15 @@ def localization_service(cep, create):
     db = connect_database('db_project')
     query = QtSql.QSqlQuery()
 
+    cep = cep.replace('-', '')
+
     insertQ = "INSERT INTO espaco (CEP) VALUES ('{0}');".format(cep)
     removeQ = "DELETE FROM espaco WHERE CEP = '{0}';".format(cep)
 
-    if (create and query.exec_(insertQ)) or (not create and query.exec_(removeQ)):
+    if (create and query.exec_(insertQ)):
+        return "Alterações aplicadas"
+
+    if (not create and query.exec_(removeQ)):
         return "Alterações aplicadas"
 
     return "Falha ao alterar"
