@@ -49,10 +49,17 @@ INSERT INTO aluga VALUES (to_timestamp('2017-04-11', 'YYYY-MM-DD'), '22222222222
 INSERT INTO aluga VALUES (to_timestamp('2018-09-12', 'YYYY-MM-DD'), '11111111111', '22222222222222');
 
 INSERT INTO espaco VALUES ('50505050', 'republica', 'endereco', 70, '44444444444444');
-INSERT INTO espaco VALUES ('78171828', 'campo', 'outro endereco', 500, '44444444444444');
+INSERT INTO espaco VALUES ('78171828', 'igreja', 'endereco', 70, '44444444444444');
+INSERT INTO espaco VALUES ('18171828', 'chacara', 'outro endereco', 1230, '44444444444444');
+INSERT INTO espaco VALUES ('28171828', 'chacara', 'um novo endereco', 107, '44444444444444');
+INSERT INTO espaco VALUES ('38171822', 'campo', 'mais um endereco', 5123, '44444444444444');
+INSERT INTO espaco VALUES ('48171821', 'chacara', 'novamente, endereco', 800, '44444444444444');
+INSERT INTO espaco VALUES ('58173828', 'estadio', 'endereco endereco', 1000, '44444444444444');
+INSERT INTO espaco VALUES ('78171928', 'bar', 'enderecozao', 200, '44444444444444');
 
-INSERT INTO universitaria_espaco VALUES (to_timestamp('2017-05-21', 'YYYY-MM-DD'), '11111111111', '78171828', 200);
-INSERT INTO universitaria_espaco VALUES (to_timestamp('2013-11-05', 'YYYY-MM-DD'), '55555555555', '50505050', 200);
+INSERT INTO universitaria_espaco VALUES (to_timestamp('2017-05-21', 'YYYY-MM-DD'), '11111111111', '48171821', 250);
+INSERT INTO universitaria_espaco VALUES (to_timestamp('2017-04-11', 'YYYY-MM-DD'), '22222222222', '18171828', 207);
+INSERT INTO universitaria_espaco VALUES (to_timestamp('2013-11-05', 'YYYY-MM-DD'), '55555555555', '50505050', 2012);
 
 
 
@@ -97,9 +104,6 @@ INSERT INTO lista_casamento ( data, organizador, nome )
 
 INSERT INTO lista_casamento ( data, organizador, nome )
 	VALUES ( to_timestamp ('2008-09-22', 'YYYY-MM-DD'), '33333333333', 'Jair Henrique Alves' );
-
-INSERT INTO lista_casamento ( data, organizador, nome )
-	VALUES ( to_timestamp ('2008-09-22', 'YYYY-MM-DD'), '33333333333', 'Geremias Henrique Alves' );
 
 INSERT INTO lista_casamento ( data, organizador, nome )
 	VALUES ( to_timestamp ('2008-09-22', 'YYYY-MM-DD'), '33333333333', 'Gabriel Henrique Alves' );
