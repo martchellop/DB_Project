@@ -1,7 +1,7 @@
 # DB_Project
 Final project of data base
 
-Assignment report on overleaf [here](https://www.overleaf.com/16613395pjytnbwkjqsg#/63779068/)
+Assignment report on overleaf [here](https://www.overleaf.com/16613395pjytnbwkjqsg#/63779068/) or a local copy [here](https://github.com/martchellop/DB_Project/blob/master/BD_T3.pdf).
 
 # Installation:
 
@@ -22,3 +22,7 @@ Populate the database
 Initialize the graphical interface with
 
 `python3 src/main.py`
+
+# Showcase:
+
+![](https://github.com/martchellop/DB_Project/blob/master/imgs/inicializandoGUI.png)
